@@ -3,21 +3,19 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>SirTrosOS – Start</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>SirTrosOS</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
 
 <style>
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
+    box-sizing: border-box;
     user-select: none;
-    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html, body {
@@ -27,16 +25,17 @@ html, body {
     background: #000;
     color: white;
     font-family: 'Nunito', sans-serif;
+    touch-action: none;
 }
 
 #startScreen {
     position: fixed;
     inset: 0;
-    z-index: 10;
+    background: #05070c;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #05070c;
+    z-index: 10;
 }
 
 .start-content {
@@ -55,32 +54,33 @@ html, body {
     color: #258cff;
 }
 
-.start-button {
+button {
     border: none;
-    color: white;
-    background: #258cff;
-    border-radius: 16px;
-    padding: 15px 65px;
+    outline: none;
     font-family: inherit;
-    font-weight: 900;
-    font-size: 17px;
     cursor: pointer;
-    touch-action: none;
-    user-select: none;
-    -webkit-user-select: none;
+}
+
+.start-button {
+    background: #258cff;
+    color: white;
+    padding: 15px 65px;
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 900;
 }
 
 .start-button:active {
     transform: scale(.95);
 }
 
-#holdScreen {
+#blackScreen {
     position: fixed;
     inset: 0;
     background: #000;
-    z-index: 8;
+    z-index: 20;
     display: none;
-    pointer-events: none;
+    touch-action: none;
 }
 
 #bootScreen {
@@ -90,14 +90,15 @@ html, body {
     display: none;
     opacity: 0;
     transition: opacity 1s ease;
+    z-index: 30;
 }
 
 .center-content {
     position: absolute;
+    top: 27%;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: min(90%, 650px);
+    transform: translateX(-50%);
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -105,17 +106,15 @@ html, body {
 
 .boot-logo {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     white-space: nowrap;
-    font-size: clamp(45px, 9vw, 82px);
+    font-size: clamp(42px, 9vw, 82px);
     font-weight: 900;
     letter-spacing: -4px;
-    line-height: 1.1;
 }
 
 .boot-logo span {
-    display: inline-block;
     opacity: 0;
     transform: translateY(15px);
     animation: letterIn .55s ease forwards;
@@ -187,12 +186,6 @@ html, body {
 
     .loading-track {
         width: 90%;
-        height: 4px;
-        margin-top: 18px;
-    }
-
-    .powered-text {
-        font-size: 11px;
     }
 
     .html-logo {
@@ -200,35 +193,28 @@ html, body {
         height: 32px;
     }
 }
-
-@media(max-width: 350px) {
-    .boot-logo {
-        font-size: 32px;
-    }
-}
 </style>
 </head>
 
 <body>
 
+<!-- START -->
 <div id="startScreen">
     <div class="start-content">
         <div class="start-logo">
             <span class="blue">S</span>ir<span class="blue">T</span>ros<span class="blue">OS</span>
         </div>
-
-        <button class="start-button" id="startButton">
-            START
-        </button>
+        <button class="start-button" id="startButton">START</button>
     </div>
 </div>
 
-<div id="holdScreen"></div>
+<!-- ČERNÁ OBRAZOVKA -->
+<div id="blackScreen"></div>
 
+<!-- STARTUP -->
 <div id="bootScreen">
 
     <div class="center-content">
-
         <div class="boot-logo">
             <span class="blue">S</span>
             <span>i</span>
@@ -244,7 +230,6 @@ html, body {
         <div class="loading-track">
             <div class="loading-bar" id="loadingBar"></div>
         </div>
-
     </div>
 
     <div class="bottom-powered">
@@ -256,44 +241,52 @@ html, body {
 
 <script>
 const startScreen = document.getElementById("startScreen");
-const holdScreen = document.getElementById("holdScreen");
-const bootScreen = document.getElementById("bootScreen");
 const startButton = document.getElementById("startButton");
+const blackScreen = document.getElementById("blackScreen");
+const bootScreen = document.getElementById("bootScreen");
 const loadingBar = document.getElementById("loadingBar");
 
+let stage = 0;
+let holdTimer = null;
 let holding = false;
 let completed = false;
-let holdTimer = null;
 
-function startHold(event) {
-    event.preventDefault();
+/* PRVNÍ KLIKNUTÍ – FULLSCREEN */
+startButton.addEventListener("click", async () => {
+    if (stage !== 0) return;
 
-    if (holding || completed) return;
+    stage = 1;
 
-    holding = true;
-
-    // Fullscreen musí být vyžádán přímo při dotyku.
     if (!document.fullscreenElement &&
         document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen().catch(() => {});
+        try {
+            await document.documentElement.requestFullscreen();
+        } catch (e) {}
     }
 
-    // Zobrazit černou obrazovku bez zrušení časovače.
     startScreen.style.display = "none";
-    holdScreen.style.display = "block";
+    blackScreen.style.display = "block";
+});
 
-    // Spustit třísekundový časovač.
+/* PODRŽENÍ KDEKOLIV NA ČERNÉ OBRAZOVCE */
+function beginHold(event) {
+    if (stage !== 1 || holding || completed) return;
+
+    event.preventDefault();
+    holding = true;
+
     holdTimer = setTimeout(() => {
         if (!holding || completed) return;
 
         completed = true;
         holding = false;
 
+        // Vibrace při úspěšném podržení
         if (navigator.vibrate) {
-            navigator.vibrate(100);
+            navigator.vibrate([100, 70, 100]);
         }
 
-        holdScreen.style.display = "none";
+        blackScreen.style.display = "none";
         bootScreen.style.display = "block";
 
         requestAnimationFrame(() => {
@@ -301,52 +294,45 @@ function startHold(event) {
         });
 
         startLoading();
-
     }, 3000);
 }
 
-function releaseHold() {
+function endHold() {
     if (!holding || completed) return;
 
     holding = false;
     clearTimeout(holdTimer);
-
-    // Při předčasném puštění návrat na START.
-    startScreen.style.display = "flex";
-    holdScreen.style.display = "none";
 }
 
-startButton.addEventListener("pointerdown", startHold);
+blackScreen.addEventListener("pointerdown", beginHold);
+document.addEventListener("pointerup", endHold);
+document.addEventListener("pointercancel", endHold);
 
-document.addEventListener("pointerup", releaseHold);
-document.addEventListener("pointercancel", releaseHold);
-
-/* STARTUP – 15 SEKUND */
-
+/* 30 SEKUND LOADINGU */
 function startLoading() {
     const keyframes = [
         [0, 0],
-        [1, 3],
         [2, 3],
-        [3, 15],
-        [4, 19],
-        [5, 19],
-        [6, 37],
-        [7, 43],
-        [8, 43],
-        [9, 65],
-        [10, 72],
-        [11, 72],
-        [12, 88],
-        [13, 94],
-        [14, 94],
-        [15, 100]
+        [4, 3],
+        [6, 15],
+        [8, 19],
+        [10, 19],
+        [12, 37],
+        [14, 43],
+        [16, 43],
+        [18, 65],
+        [20, 72],
+        [22, 72],
+        [24, 88],
+        [26, 94],
+        [28, 94],
+        [30, 100]
     ];
 
     const startTime = performance.now();
 
     function update(now) {
-        const elapsed = Math.min((now - startTime) / 1000, 15);
+        const elapsed = Math.min((now - startTime) / 1000, 30);
         let progress = 0;
 
         for (let i = 0; i < keyframes.length - 1; i++) {
@@ -366,11 +352,11 @@ function startLoading() {
             }
         }
 
-        if (elapsed >= 15) progress = 100;
+        if (elapsed >= 30) progress = 100;
 
         loadingBar.style.width = progress + "%";
 
-        if (elapsed < 15) {
+        if (elapsed < 30) {
             requestAnimationFrame(update);
         } else {
             setTimeout(finishBoot, 500);
@@ -380,8 +366,7 @@ function startLoading() {
     requestAnimationFrame(update);
 }
 
-/* DOKONČENÍ */
-
+/* KONEC STARTUPU */
 function finishBoot() {
     bootScreen.style.opacity = "0";
 
