@@ -29,8 +29,6 @@ html, body {
     font-family: 'Nunito', sans-serif;
 }
 
-/* START */
-
 #startScreen {
     position: fixed;
     inset: 0;
@@ -39,7 +37,6 @@ html, body {
     align-items: center;
     justify-content: center;
     background: #05070c;
-    transition: opacity .2s ease;
 }
 
 .start-content {
@@ -77,17 +74,14 @@ html, body {
     transform: scale(.95);
 }
 
-/* BLACK SCREEN */
-
 #holdScreen {
     position: fixed;
     inset: 0;
     background: #000;
     z-index: 8;
     display: none;
+    pointer-events: none;
 }
-
-/* BOOT */
 
 #bootScreen {
     position: fixed;
@@ -97,8 +91,6 @@ html, body {
     opacity: 0;
     transition: opacity 1s ease;
 }
-
-/* CENTER LOGO */
 
 .center-content {
     position: absolute;
@@ -146,8 +138,6 @@ html, body {
     }
 }
 
-/* LOADING */
-
 .loading-track {
     width: 85%;
     height: 5px;
@@ -163,8 +153,6 @@ html, body {
     background: white;
     border-radius: 20px;
 }
-
-/* POWERED BY */
 
 .bottom-powered {
     position: absolute;
@@ -190,8 +178,6 @@ html, body {
     height: 36px;
     object-fit: contain;
 }
-
-/* MOBILE */
 
 @media(max-width: 500px) {
     .boot-logo {
@@ -225,11 +211,8 @@ html, body {
 
 <body>
 
-<!-- START SCREEN -->
-
 <div id="startScreen">
     <div class="start-content">
-
         <div class="start-logo">
             <span class="blue">S</span>ir<span class="blue">T</span>ros<span class="blue">OS</span>
         </div>
@@ -237,15 +220,10 @@ html, body {
         <button class="start-button" id="startButton">
             START
         </button>
-
     </div>
 </div>
 
-<!-- BLACK SCREEN -->
-
 <div id="holdScreen"></div>
-
-<!-- BOOT SCREEN -->
 
 <div id="bootScreen">
 
@@ -286,41 +264,27 @@ const loadingBar = document.getElementById("loadingBar");
 let holding = false;
 let completed = false;
 let holdTimer = null;
-let blackTimer = null;
 
-async function enterFullscreen() {
-    try {
-        if (!document.fullscreenElement &&
-            document.documentElement.requestFullscreen) {
-            await document.documentElement.requestFullscreen();
-        }
-    } catch (e) {
-        // Některé mobilní prohlížeče fullscreen nepodporují.
-    }
-}
-
-function showBlackScreen() {
-    startScreen.style.opacity = "0";
-
-    setTimeout(() => {
-        startScreen.style.display = "none";
-        holdScreen.style.display = "block";
-    }, 200);
-}
-
-startButton.addEventListener("pointerdown", async (event) => {
+function startHold(event) {
     event.preventDefault();
 
-    if (completed || holding) return;
+    if (holding || completed) return;
 
     holding = true;
 
-    enterFullscreen();
+    // Fullscreen musí být vyžádán přímo při dotyku.
+    if (!document.fullscreenElement &&
+        document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    }
 
-    showBlackScreen();
+    // Zobrazit černou obrazovku bez zrušení časovače.
+    startScreen.style.display = "none";
+    holdScreen.style.display = "block";
 
+    // Spustit třísekundový časovač.
     holdTimer = setTimeout(() => {
-        if (!holding) return;
+        if (!holding || completed) return;
 
         completed = true;
         holding = false;
@@ -337,26 +301,27 @@ startButton.addEventListener("pointerdown", async (event) => {
         });
 
         startLoading();
-    }, 3000);
-});
 
-function cancelHold() {
+    }, 3000);
+}
+
+function releaseHold() {
     if (!holding || completed) return;
 
     holding = false;
     clearTimeout(holdTimer);
-    clearTimeout(blackTimer);
 
+    // Při předčasném puštění návrat na START.
     startScreen.style.display = "flex";
-    startScreen.style.opacity = "1";
     holdScreen.style.display = "none";
 }
 
-startButton.addEventListener("pointerup", cancelHold);
-startButton.addEventListener("pointercancel", cancelHold);
-startButton.addEventListener("lostpointercapture", cancelHold);
+startButton.addEventListener("pointerdown", startHold);
 
-/* STARTUP – PŘESNĚ 15 SEKUND */
+document.addEventListener("pointerup", releaseHold);
+document.addEventListener("pointercancel", releaseHold);
+
+/* STARTUP – 15 SEKUND */
 
 function startLoading() {
     const keyframes = [
@@ -382,7 +347,6 @@ function startLoading() {
 
     function update(now) {
         const elapsed = Math.min((now - startTime) / 1000, 15);
-
         let progress = 0;
 
         for (let i = 0; i < keyframes.length - 1; i++) {
@@ -390,8 +354,7 @@ function startLoading() {
             const next = keyframes[i + 1];
 
             if (elapsed >= current[0] && elapsed <= next[0]) {
-                const part =
-                    (elapsed - current[0]) /
+                const part = (elapsed - current[0]) /
                     (next[0] - current[0]);
 
                 const eased = part * part * (3 - 2 * part);
@@ -417,7 +380,7 @@ function startLoading() {
     requestAnimationFrame(update);
 }
 
-/* FINISH */
+/* DOKONČENÍ */
 
 function finishBoot() {
     bootScreen.style.opacity = "0";
