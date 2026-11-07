@@ -3,7 +3,7 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#05070c">
 <title>SirTrosOS</title>
 
@@ -13,25 +13,22 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;overflow:hidden;background:#000;color:#fff;font-family:Nunito,sans-serif;touch-action:pan-y}
-button,input,textarea{font:inherit}
-button{border:0;color:inherit;cursor:pointer}
-.hidden{display:none!important}
-
+button,input,select{font:inherit}
+button{border:0;color:inherit;cursor:pointer;outline:none}
 :root{
  --blue:#258cff;
- --glass:rgba(255,255,255,.13);
  --wallpaper:radial-gradient(circle at 20% 20%,#174b83 0%,transparent 42%),radial-gradient(circle at 80% 75%,#49246f 0%,transparent 45%),linear-gradient(145deg,#07101e,#101a31 60%,#090d18);
 }
+.hidden{display:none!important}
 
-#os{position:fixed;inset:0;width:100%;height:100%;overflow:hidden;background:var(--wallpaper)}
+/* START A STARTUP */
 #startScreen,#blackScreen,#bootScreen{position:fixed;inset:0;background:#000;z-index:1000}
 #startScreen{display:flex;align-items:center;justify-content:center;background:#05070c}
 .start-content{text-align:center;transform:translateY(-45px)}
 .start-logo{font-size:clamp(48px,10vw,78px);font-weight:900;letter-spacing:-4px;margin-bottom:35px}
 .blue{color:var(--blue)}
-button{outline:none}
-.start-button{background:var(--blue);padding:15px 65px;border-radius:16px;font-size:17px;font-weight:900}
-.start-button:active{transform:scale(.95)}
+.start-button{background:var(--blue);padding:15px 65px;border-radius:16px;font-size:17px;font-weight:900;transition:.2s}
+.start-button:active{transform:scale(.94)}
 #blackScreen{display:none;z-index:1001;touch-action:none}
 #bootScreen{display:none;opacity:0;z-index:1002;transition:opacity 1s}
 .center-content{position:absolute;top:33%;left:50%;transform:translateX(-50%);width:90%;display:flex;flex-direction:column;align-items:center}
@@ -53,8 +50,8 @@ button{outline:none}
 .powered-text{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:2px}
 .html-logo{width:32px;height:36px;object-fit:contain}
 
-/* OS */
-#os{display:none}
+/* SYSTEM */
+#os{display:none;position:fixed;inset:0;width:100%;height:100%;overflow:hidden;background:var(--wallpaper)}
 #home{position:absolute;inset:0;padding:env(safe-area-inset-top) 18px calc(90px + env(safe-area-inset-bottom));overflow:auto;background:var(--wallpaper)}
 #status{height:38px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;font-size:13px;font-weight:800;position:relative;z-index:10}
 .status-left,.status-right{display:flex;align-items:center;gap:9px}
@@ -80,12 +77,24 @@ button{outline:none}
 .widget strong{display:block;font-size:27px;margin-top:5px}
 .widget p{font-size:12px;color:#c6d2e3}
 
-/* NAVIGATION */
-#navigation{position:absolute;bottom:0;left:0;width:100%;height:calc(70px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);display:flex;align-items:center;justify-content:space-around;background:rgba(5,8,15,.65);backdrop-filter:blur(22px);z-index:30}
-.nav-btn{width:33.33%;height:100%;background:none;display:flex;align-items:center;justify-content:center;color:#fff;opacity:.9}
+/* SPODNÍ LIŠTA */
+#navigation{
+ position:absolute;bottom:0;left:0;width:100%;
+ height:calc(70px + env(safe-area-inset-bottom));
+ padding-bottom:env(safe-area-inset-bottom);
+ display:flex;align-items:center;justify-content:space-around;
+ background:rgba(5,8,15,.28);
+ backdrop-filter:blur(25px);
+ -webkit-backdrop-filter:blur(25px);
+ border-top:1px solid rgba(255,255,255,.07);
+ z-index:30;transition:background .2s
+}
+.nav-btn{width:33.33%;height:100%;background:none;display:flex;align-items:center;justify-content:center;color:#fff;opacity:.9;transition:opacity .2s}
 .nav-btn i{width:23px;height:23px}
 .nav-btn.back i{width:29px;height:29px}
 .nav-btn.menu i{transform:rotate(90deg)}
+/* V aplikacích zůstane jen samotná lišta */
+#os.in-app .nav-btn{opacity:0;pointer-events:none}
 
 /* LOCK SCREEN */
 #lockScreen{position:absolute;inset:0;z-index:100;background:linear-gradient(160deg,#101b35,#172d50 55%,#080e1c);display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top) + 35px) 22px calc(env(safe-area-inset-bottom) + 25px)}
@@ -102,12 +111,12 @@ button{outline:none}
 #lockScreen.unlocking{animation:unlock .4s forwards}
 @keyframes unlock{to{opacity:0;transform:translateY(-20px)}}
 
-/* APPS */
+/* APLIKACE */
 #appScreen{position:absolute;inset:0;z-index:50;background:#0b1020;display:none;flex-direction:column}
 .app-header{height:80px;padding:env(safe-area-inset-top) 22px 10px;display:flex;align-items:center;gap:15px;background:#111a2b}
-.app-header button{background:none}
+.app-header button{background:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px}
 .app-header h2{font-size:22px;font-weight:900}
-.app-content{flex:1;overflow:auto;padding:20px}
+.app-content{flex:1;overflow:auto;padding:20px 20px 95px}
 .panel{background:rgba(255,255,255,.09);border:1px solid #ffffff12;border-radius:22px;padding:17px;margin-bottom:14px}
 .panel h3{font-size:16px;margin-bottom:10px}
 .muted{color:#aebbd0;font-size:13px}
@@ -116,7 +125,7 @@ button{outline:none}
 .field{width:100%;background:#ffffff12;border:1px solid #ffffff20;color:#fff;border-radius:14px;padding:13px;margin:7px 0;outline:none}
 .field option{background:#101827;color:#fff}
 
-/* CALCULATOR */
+/* KALKULAČKA */
 #calcDisplay{width:100%;background:#ffffff0c;border:0;border-radius:20px;padding:20px;color:white;text-align:right;font-size:35px;margin-bottom:15px}
 .calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
 .calc-grid button{height:61px;border-radius:18px;background:#ffffff16;font-size:20px;font-weight:800}
@@ -124,21 +133,21 @@ button{outline:none}
 .calc-grid button.equal{background:#258cff}
 .calc-grid button:active{transform:scale(.95)}
 
-/* CLOCK */
+/* HODINY */
 .clock-big{text-align:center;font-size:55px;font-weight:900;padding:25px 0}
 .clock-buttons{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
 
-/* MESSAGES */
+/* ZPRÁVY */
 .message{padding:12px 15px;border-radius:18px;background:#ffffff16;margin:9px 0;max-width:85%;font-size:14px}
 .message.mine{margin-left:auto;background:#176fc9}
 .message small{display:block;color:#c3d2e6;font-size:10px;margin-bottom:4px}
 
-/* PHONE */
+/* TELEFON */
 .dial-display{font-size:30px;text-align:center;min-height:55px;padding:10px}
 .dial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:10px auto}
 .dial-grid button{height:62px;border-radius:50%;background:#ffffff15;font-size:23px;font-weight:800}
 
-/* SHADE */
+/* RYCHLÝ PANEL */
 #shade{position:absolute;inset:0;z-index:200;background:rgba(5,9,18,.96);backdrop-filter:blur(25px);padding:calc(env(safe-area-inset-top) + 20px) 20px 30px;display:none;overflow:auto}
 .shade-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}
 .shade-head h2{font-size:27px}
@@ -152,7 +161,7 @@ button{outline:none}
 .notice p{font-size:12px;color:#bdc9da;margin-top:4px}
 .power-button{background:#a72f42;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center}
 
-/* DIALOGS */
+/* DIALOG */
 #dialog{position:absolute;inset:0;z-index:400;background:#0009;display:none;align-items:center;justify-content:center;padding:25px}
 .dialog-box{width:100%;max-width:350px;background:#182338;border-radius:25px;padding:23px;box-shadow:0 20px 70px #0008}
 .dialog-box h3{font-size:20px;margin-bottom:9px}
@@ -160,9 +169,8 @@ button{outline:none}
 .dialog-actions{display:flex;justify-content:flex-end;gap:9px}
 #toast{position:absolute;bottom:95px;left:50%;transform:translateX(-50%);background:#202c40;padding:11px 18px;border-radius:30px;font-size:12px;z-index:500;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap}
 #toast.show{opacity:1}
-
-/* SLEEP */
 #sleepOverlay{position:absolute;inset:0;background:#000;z-index:800;display:none}
+
 @media(max-width:500px){
  .boot-logo{font-size:clamp(36px,10vw,55px);letter-spacing:-2px}
  .loading-track{width:90%}
@@ -174,7 +182,7 @@ button{outline:none}
 
 <body>
 
-<!-- START -->
+<!-- PRVNÍ ZAPNUTÍ -->
 <div id="startScreen">
  <div class="start-content">
   <div class="start-logo"><span class="blue">S</span>ir<span class="blue">T</span>ros<span class="blue">OS</span></div>
@@ -184,7 +192,7 @@ button{outline:none}
 
 <div id="blackScreen"></div>
 
-<!-- STARTUP -->
+<!-- STARTUP ANIMACE -->
 <div id="bootScreen">
  <div class="center-content">
   <div class="boot-logo">
@@ -198,8 +206,9 @@ button{outline:none}
  </div>
 </div>
 
-<!-- SYSTEM -->
+<!-- SIRTROS OS -->
 <div id="os">
+
  <div id="home">
   <div id="status">
    <div class="status-left">
@@ -246,13 +255,14 @@ button{outline:none}
   </div>
  </div>
 
+ <!-- SPODNÍ LIŠTA -->
  <div id="navigation">
   <button class="nav-btn menu" onclick="toggleShade()"><i data-lucide="menu"></i></button>
   <button class="nav-btn" onclick="goHome()"><i data-lucide="circle"></i></button>
   <button class="nav-btn back" onclick="goBack()"><i data-lucide="arrow-left"></i></button>
  </div>
 
- <!-- LOCK SCREEN -->
+ <!-- ZAMYKACÍ OBRAZOVKA -->
  <div id="lockScreen">
   <div class="lock-top">
    <span id="lockDateSmall">SirTrosOS</span>
@@ -270,7 +280,7 @@ button{outline:none}
   <i class="unlock-arrow" data-lucide="chevron-up"></i>
  </div>
 
- <!-- APP -->
+ <!-- APLIKACE -->
  <div id="appScreen">
   <div class="app-header">
    <button onclick="closeApp()"><i data-lucide="arrow-left"></i></button>
@@ -279,7 +289,7 @@ button{outline:none}
   <div class="app-content" id="appContent"></div>
  </div>
 
- <!-- NOTIFICATION SHADE -->
+ <!-- RYCHLÝ PANEL -->
  <div id="shade">
   <div class="shade-head">
    <div><h2>Rychlý panel</h2><p class="muted" id="shadeDate"></p></div>
@@ -297,10 +307,11 @@ button{outline:none}
   <button class="action secondary" onclick="clearNotifications()">Vymazat oznámení</button>
  </div>
 
+ <!-- RESTART DIALOG -->
  <div id="dialog">
   <div class="dialog-box">
-   <h3 id="dialogTitle">Restartovat?</h3>
-   <p id="dialogText">Opravdu chcete restartovat zařízení?</p>
+   <h3>Restartovat zařízení?</h3>
+   <p>Opravdu chcete restartovat zařízení?</p>
    <div class="dialog-actions">
     <button class="action secondary" onclick="hideDialog()">Ne</button>
     <button class="action" onclick="confirmRestart()">Ano</button>
@@ -314,59 +325,62 @@ button{outline:none}
 
 <script>
 const $=id=>document.getElementById(id);
-const startScreen=$("startScreen");
-const blackScreen=$("blackScreen");
-const bootScreen=$("bootScreen");
-const os=$("os");
-const loadingBar=$("loadingBar");
-let stage=0,holding=false,completed=false,holdTimer=null;
-let currentApp=null,previousApp=null;
-let idleTimer=null,dimTimer=null,sleeping=false;
+
+let stage=0;
+let holding=false;
+let completed=false;
+let holdTimer=null;
+let currentApp=null;
 let wakeLock=null;
 let batteryLevel=null;
-let stopwatchStart=null,stopwatchInterval=null,stopwatchElapsed=0;
+let stopwatchStart=null;
+let stopwatchElapsed=0;
+let stopwatchInterval=null;
 let dialNumber="";
+let idleTimer=null;
+let dimTimer=null;
+let sleeping=false;
+let toastTimer=null;
 
-function icons(){if(window.lucide)lucide.createIcons()}
+function icons(){
+ if(window.lucide)lucide.createIcons();
+}
 icons();
 
-/* ORIENTATION: žádná výzva, jen tichý pokus o zámek na výšku */
+/* ORIENTACE NA VÝŠKU */
 async function lockPortrait(){
  try{
-  if(screen.orientation && screen.orientation.lock){
-   await screen.orientation.lock("portrait");
-  }
- }catch(e){
-  // Některé prohlížeče orientaci zamknout nedovolí.
- }
+  if(screen.orientation?.lock)await screen.orientation.lock("portrait");
+ }catch(e){}
 }
 
+/* OCHRANA DISPLEJE */
 async function keepAwake(){
  try{
   if("wakeLock" in navigator){
-   if(!wakeLock || wakeLock.released){
+   if(!wakeLock||wakeLock.released)
     wakeLock=await navigator.wakeLock.request("screen");
-   }
   }
  }catch(e){}
 }
 document.addEventListener("visibilitychange",()=>{
- if(document.visibilityState==="visible" && stage>=1)keepAwake();
+ if(document.visibilityState==="visible"&&stage>=1)keepAwake();
 });
 
-/* STARTUP */
+/* PRVNÍ START */
 $("startButton").addEventListener("click",async()=>{
  if(stage!==0)return;
  stage=1;
  await lockPortrait();
  keepAwake();
- if(!document.fullscreenElement && document.documentElement.requestFullscreen){
+ if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
   try{await document.documentElement.requestFullscreen()}catch(e){}
  }
- startScreen.style.display="none";
- blackScreen.style.display="block";
+ $("startScreen").style.display="none";
+ $("blackScreen").style.display="block";
 });
 
+/* PODRŽENÍ 3 SEKUND */
 function beginHold(e){
  if(stage!==1||holding||completed)return;
  e.preventDefault();
@@ -376,10 +390,8 @@ function beginHold(e){
   completed=true;
   holding=false;
   if(navigator.vibrate)navigator.vibrate([100,70,100]);
-  blackScreen.style.display="none";
-  bootScreen.style.display="block";
-  requestAnimationFrame(()=>bootScreen.style.opacity="1");
-  startLoading();
+  $("blackScreen").style.display="none";
+  beginBoot();
  },3000);
 }
 function endHold(){
@@ -387,16 +399,32 @@ function endHold(){
  holding=false;
  clearTimeout(holdTimer);
 }
-blackScreen.addEventListener("pointerdown",beginHold);
+$("blackScreen").addEventListener("pointerdown",beginHold);
 document.addEventListener("pointerup",endHold);
 document.addEventListener("pointercancel",endHold);
 
+/* SPOLEČNÝ STARTUP */
+function beginBoot(){
+ $("blackScreen").style.display="none";
+ $("bootScreen").style.display="block";
+ $("loadingBar").style.width="0%";
+ requestAnimationFrame(()=>$("bootScreen").style.opacity="1");
+ startLoading();
+}
+
+/* NAČÍTÁNÍ 30 SEKUND */
 function startLoading(){
- const frames=[[0,0],[2,3],[4,3],[6,15],[8,19],[10,19],[12,37],[14,43],[16,43],[18,65],[20,72],[22,72],[24,88],[26,94],[28,94],[30,100]];
+ const frames=[
+  [0,0],[2,3],[4,3],[6,15],[8,19],[10,19],
+  [12,37],[14,43],[16,43],[18,65],[20,72],
+  [22,72],[24,88],[26,94],[28,94],[30,100]
+ ];
  const start=performance.now();
+
  function update(now){
   const elapsed=Math.min((now-start)/1000,30);
   let progress=0;
+
   for(let i=0;i<frames.length-1;i++){
    const a=frames[i],b=frames[i+1];
    if(elapsed>=a[0]&&elapsed<=b[0]){
@@ -406,21 +434,31 @@ function startLoading(){
     break;
    }
   }
+
   if(elapsed>=30)progress=100;
-  loadingBar.style.width=progress+"%";
+  $("loadingBar").style.width=progress+"%";
+
   if(elapsed<30)requestAnimationFrame(update);
   else setTimeout(finishBoot,500);
  }
  requestAnimationFrame(update);
 }
+
+/* KONEC STARTUPU */
 function finishBoot(){
- bootScreen.style.opacity="0";
+ $("bootScreen").style.opacity="0";
  setTimeout(()=>{
-  bootScreen.style.display="none";
-  os.style.display="block";
+  $("bootScreen").style.display="none";
+  $("os").style.display="block";
   $("lockScreen").style.display="flex";
   $("lockScreen").classList.remove("unlocking");
+  $("appScreen").style.display="none";
+  $("home").style.display="block";
+  $("os").classList.remove("in-app");
+  $("shade").style.display="none";
+  $("dialog").style.display="none";
   stage=2;
+  currentApp=null;
   updateTime();
   icons();
   resetIdle();
@@ -428,7 +466,7 @@ function finishBoot(){
  },1000);
 }
 
-/* CLOCK AND STATUS */
+/* ČAS */
 function updateTime(){
  const now=new Date();
  const time=now.toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"});
@@ -443,29 +481,27 @@ function updateTime(){
  $("shadeDate").textContent=date;
 }
 setInterval(updateTime,1000);
+updateTime();
 
 if(navigator.getBattery){
  navigator.getBattery().then(b=>{
-  function batteryUpdate(){
+  function updateBattery(){
    batteryLevel=Math.round(b.level*100);
    $("battery").textContent=batteryLevel;
   }
-  batteryUpdate();
-  b.addEventListener("levelchange",batteryUpdate);
+  updateBattery();
+  b.addEventListener("levelchange",updateBattery);
  }).catch(()=>{});
 }
 
-/* LOCK SCREEN GESTURE */
+/* ODEMYKÁNÍ */
 let lockStartY=null;
 $("lockScreen").addEventListener("touchstart",e=>{
  lockStartY=e.touches[0].clientY;
 },{passive:true});
 $("lockScreen").addEventListener("touchend",e=>{
- if(lockStartY!==null && lockStartY-e.changedTouches[0].clientY>45)unlock();
+ if(lockStartY!==null&&lockStartY-e.changedTouches[0].clientY>45)unlock();
  lockStartY=null;
-});
-$("lockScreen").addEventListener("click",e=>{
- if(e.target.closest("button"))return;
 });
 function unlock(){
  const lock=$("lockScreen");
@@ -478,35 +514,53 @@ function unlock(){
  },350);
 }
 
-/* APPS */
+/* APLIKACE */
 function openApp(name){
- previousApp=currentApp;
  currentApp=name;
  $("shade").style.display="none";
  $("appScreen").style.display="flex";
  $("home").style.display="none";
- const titles={calc:"Kalkulačka",settings:"Nastavení",clock:"Hodiny",messages:"Zprávy",phone:"Telefon"};
+ $("os").classList.add("in-app");
+
+ const titles={
+  calc:"Kalkulačka",
+  settings:"Nastavení",
+  clock:"Hodiny",
+  messages:"Zprávy",
+  phone:"Telefon"
+ };
  $("appTitle").textContent=titles[name]||"Aplikace";
+
  const content=$("appContent");
  content.innerHTML="";
+
  if(name==="calc")renderCalculator(content);
  if(name==="settings")renderSettings(content);
  if(name==="clock")renderClock(content);
  if(name==="messages")renderMessages(content);
  if(name==="phone")renderPhone(content);
+
  icons();
  resetIdle();
 }
+
 function closeApp(){
  $("appScreen").style.display="none";
  $("home").style.display="block";
+ $("os").classList.remove("in-app");
  currentApp=null;
  resetIdle();
 }
 function goHome(){
- if($("shade").style.display==="block"){$("shade").style.display="none";return}
- if($("dialog").style.display==="flex"){hideDialog();return}
- if($("appScreen").style.display==="flex"){closeApp();return}
+ if($("shade").style.display==="block"){
+  $("shade").style.display="none";return;
+ }
+ if($("dialog").style.display==="flex"){
+  hideDialog();return;
+ }
+ if($("appScreen").style.display==="flex"){
+  closeApp();return;
+ }
  if($("lockScreen").style.display!=="none")unlock();
  resetIdle();
 }
@@ -518,7 +572,7 @@ function goBack(){
  goHome();
 }
 
-/* CALCULATOR */
+/* KALKULAČKA */
 function renderCalculator(root){
  root.innerHTML=`
  <input id="calcDisplay" value="0" readonly>
@@ -537,18 +591,15 @@ function calcAdd(v){
 }
 function calcClear(){$("calcDisplay").value="0"}
 function calcResult(){
- const d=$("calcDisplay");
- const exp=d.value;
+ const d=$("calcDisplay"),exp=d.value;
  if(!/^[0-9+\-*/(). ]+$/.test(exp)){d.value="Chyba";return}
  try{
-  const tokens=exp.match(/(\d+\.?\d*|\.\d+|[()+\-*/])/g);
-  if(!tokens||tokens.join("")!==exp.replace(/\s/g,""))throw Error();
   const result=Function('"use strict";return ('+exp+')')();
   d.value=Number.isFinite(result)?String(Number(result.toFixed(8))):"Chyba";
  }catch(e){d.value="Chyba"}
 }
 
-/* SETTINGS */
+/* NASTAVENÍ */
 function renderSettings(root){
  root.innerHTML=`
  <div class="panel"><h3>Vzhled</h3><p class="muted">Vyber si tapetu systému.</p></div>
@@ -579,35 +630,31 @@ function wallpaper(n){
  toast("Tapeta změněna");
 }
 
-/* CLOCK APP */
+/* HODINY */
 function renderClock(root){
  root.innerHTML=`
- <div class="panel">
- <h3>Aktuální čas</h3><div class="clock-big" id="clockAppTime">12:00</div>
- <p class="muted" style="text-align:center">Systémové hodiny</p>
- </div>
- <div class="panel">
- <h3>Stopky</h3><div class="clock-big" id="stopwatch">00:00.0</div>
+ <div class="panel"><h3>Aktuální čas</h3>
+ <div class="clock-big" id="clockAppTime">12:00</div>
+ <p class="muted" style="text-align:center">Systémové hodiny</p></div>
+ <div class="panel"><h3>Stopky</h3>
+ <div class="clock-big" id="stopwatch">00:00.0</div>
  <div class="clock-buttons">
  <button class="action" onclick="startStopwatch()">Start</button>
  <button class="action secondary" onclick="pauseStopwatch()">Pauza</button>
  <button class="action secondary" onclick="resetStopwatch()">Reset</button>
  </div></div>`;
- updateClockApp();
+ drawStopwatch();
 }
 function updateClockApp(){
  const el=$("clockAppTime");
- if(el)el.textContent=new Date().toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+ if(el)el.textContent=new Date().toLocaleTimeString("cs-CZ");
 }
 setInterval(updateClockApp,500);
 function drawStopwatch(){
  const el=$("stopwatch");if(!el)return;
  const ms=stopwatchElapsed+(stopwatchStart?Date.now()-stopwatchStart:0);
  const total=Math.floor(ms/100);
- const mins=Math.floor(total/600);
- const secs=Math.floor(total/10)%60;
- const tenths=total%10;
- el.textContent=String(mins).padStart(2,"0")+":"+String(secs).padStart(2,"0")+"."+tenths;
+ el.textContent=String(Math.floor(total/600)).padStart(2,"0")+":"+String(Math.floor(total/10)%60).padStart(2,"0")+"."+(total%10);
 }
 function startStopwatch(){
  if(stopwatchStart)return;
@@ -625,7 +672,7 @@ function resetStopwatch(){
  pauseStopwatch();stopwatchElapsed=0;drawStopwatch();
 }
 
-/* MESSAGES */
+/* ZPRÁVY */
 function renderMessages(root){
  root.innerHTML=`
  <div id="messageList">
@@ -640,15 +687,14 @@ function renderMessages(root){
 function sendMessage(){
  const input=$("messageInput");
  if(!input||!input.value.trim())return;
- const list=$("messageList");
  const div=document.createElement("div");
  div.className="message mine";
  div.textContent=input.value;
- list.appendChild(div);
+ $("messageList").appendChild(div);
  input.value="";
 }
 
-/* PHONE */
+/* TELEFON */
 function renderPhone(root){
  root.innerHTML=`
  <div class="panel"><div class="dial-display" id="dialDisplay"></div>
@@ -663,10 +709,9 @@ function renderPhone(root){
 function dialAdd(v){dialNumber+=v;$("dialDisplay").textContent=dialNumber}
 function dialClear(){dialNumber="";$("dialDisplay").textContent=""}
 
-/* SHADE */
+/* RYCHLÝ PANEL */
 function toggleShade(){
- if($("shade").style.display==="block")$("shade").style.display="none";
- else $("shade").style.display="block";
+ $("shade").style.display=$("shade").style.display==="block"?"none":"block";
  icons();resetIdle();
 }
 function toggleQuick(button){button.classList.toggle("active")}
@@ -679,28 +724,44 @@ function clearNotifications(){
 /* RESTART */
 function showRestart(){
  $("shade").style.display="none";
- $("dialogTitle").textContent="Restartovat zařízení?";
- $("dialogText").textContent="Opravdu chcete restartovat zařízení?";
  $("dialog").style.display="flex";
 }
 function hideDialog(){$("dialog").style.display="none"}
+
 function confirmRestart(){
- hideDialog();
+ $("dialog").style.display="none";
  $("os").style.display="none";
- $("startScreen").style.display="flex";
- $("blackScreen").style.display="none";
+ $("blackScreen").style.display="block";
  $("bootScreen").style.display="none";
+ $("bootScreen").style.opacity="0";
+ $("loadingBar").style.width="0%";
  $("appScreen").style.display="none";
  $("home").style.display="block";
  $("lockScreen").style.display="flex";
+ $("lockScreen").classList.remove("unlocking");
  $("shade").style.display="none";
+ $("os").classList.remove("in-app");
  $("navigation").style.display="flex";
- $("loadingBar").style.width="0%";
- stage=0;completed=false;currentApp=null;
+
+ currentApp=null;
+ sleeping=false;
+ clearTimeout(idleTimer);
+ clearTimeout(dimTimer);
+ document.body.style.filter="brightness(1)";
+
+ stage=1;
+ completed=true;
+ holding=false;
+
+ // Restart: 5 sekund černá obrazovka, potom automatický startup.
+ setTimeout(()=>{
+  if(stage!==1)return;
+  if(navigator.vibrate)navigator.vibrate([80,50,80]);
+  beginBoot();
+ },5000);
 }
 
 /* TOAST */
-let toastTimer;
 function toast(message){
  const el=$("toast");
  el.textContent=message;
@@ -709,20 +770,25 @@ function toast(message){
  toastTimer=setTimeout(()=>el.classList.remove("show"),2200);
 }
 
-/* IDLE: 10s dim, 15s black */
+/* AUTOMATICKÉ ZTLUMENÍ A USNUTÍ */
 function resetIdle(){
  if(stage<2)return;
- clearTimeout(idleTimer);clearTimeout(dimTimer);
+ clearTimeout(idleTimer);
+ clearTimeout(dimTimer);
+
  if(sleeping){
   sleeping=false;
   $("sleepOverlay").style.display="none";
   $("lockScreen").style.display="flex";
   $("lockScreen").classList.remove("unlocking");
  }
+
  document.body.style.filter="brightness(1)";
+
  dimTimer=setTimeout(()=>{
   if(!sleeping)document.body.style.filter="brightness(.3)";
  },10000);
+
  idleTimer=setTimeout(()=>{
   sleeping=true;
   $("sleepOverlay").style.display="block";
@@ -744,7 +810,7 @@ document.addEventListener("pointerdown",e=>{
  resetIdle();
 },{passive:true});
 
-/* SHADE SWIPE DOWN */
+/* GESTO PRO RYCHLÝ PANEL */
 let touchStartY=null;
 document.addEventListener("touchstart",e=>{
  if(stage<2||e.touches.length!==1)return;
@@ -753,19 +819,16 @@ document.addEventListener("touchstart",e=>{
 document.addEventListener("touchend",e=>{
  if(stage<2||touchStartY===null)return;
  const end=e.changedTouches[0].clientY;
- if(touchStartY<35&&end-touchStartY>65){
-  if($("lockScreen").style.display==="none")toggleShade();
+ if(touchStartY<35&&end-touchStartY>65&&$("lockScreen").style.display==="none"){
+  toggleShade();
  }
  touchStartY=null;
 },{passive:true});
 
-/* STARTUP SCREEN ONLY ONCE PER PAGE LOAD */
 window.addEventListener("orientationchange",()=>{
- // Bez hlášky a bez překryvné obrazovky.
- // Prohlížeč, který podporuje lock("portrait"), zůstane na výšku.
+ // Bez výstrahy a bez další obrazovky.
 });
 
-updateTime();
 </script>
 </body>
 </html>
