@@ -23,14 +23,14 @@ button{border:0;cursor:pointer}
 .start-button{background:var(--blue);padding:15px 65px;border-radius:18px;font-weight:900}
 #blackScreen{display:none;z-index:1001;touch-action:none}
 #bootScreen{display:none;opacity:0;z-index:1002;transition:opacity .7s}
-.center-content{position:absolute;top:35%;left:50%;transform:translateX(-50%);width:92%;display:flex;flex-direction:column;align-items:center}
+.center-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92%;display:flex;flex-direction:column;align-items:center}
 .boot-logo{font-size:clamp(37px,10vw,70px);font-weight:900;white-space:nowrap;letter-spacing:-3px}
 .boot-logo span{display:inline-block;opacity:0;animation:letter .5s ease forwards}
 .boot-logo span:nth-child(1){animation-delay:.1s}.boot-logo span:nth-child(2){animation-delay:.2s}.boot-logo span:nth-child(3){animation-delay:.3s}.boot-logo span:nth-child(4){animation-delay:.4s}.boot-logo span:nth-child(5){animation-delay:.5s}.boot-logo span:nth-child(6){animation-delay:.6s}.boot-logo span:nth-child(7){animation-delay:.7s}.boot-logo span:nth-child(8){animation-delay:.8s}.boot-logo span:nth-child(9){animation-delay:.9s}
 @keyframes letter{to{opacity:1;transform:translateY(0)}}
 .loading-track{width:85%;height:5px;background:#292929;border-radius:20px;overflow:hidden;margin-top:28px}
 .loading-bar{height:100%;width:0;background:white;transition:width .1s}
-.powered{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--blue);font-size:12px;font-weight:900;letter-spacing:2px;white-space:nowrap}
+.powered{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;color:var(--blue);font-size:12px;font-weight:900;letter-spacing:2px;white-space:nowrap}.powered img{width:25px;height:25px;object-fit:contain}
 #os{position:fixed;inset:0;display:none;overflow:hidden;background:radial-gradient(circle at 15% 15%,#174b83 0%,transparent 43%),radial-gradient(circle at 85% 80%,#49246f 0%,transparent 45%),linear-gradient(145deg,#07101e,#101a31 60%,#090d18);filter:brightness(var(--brightness));transition:filter .5s}
 #home{position:absolute;inset:0;overflow:auto;padding:env(safe-area-inset-top) 19px 90px}
 #status{height:39px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;font-size:13px;font-weight:900}
@@ -167,6 +167,60 @@ input[type=range]{width:100%;accent-color:#258cff}
 #sleepOverlay{position:absolute;inset:0;background:#000;z-index:900;display:none;opacity:0;transition:opacity .4s}
 #sleepOverlay.sleep-on{opacity:1}
 @media(max-width:390px){.app-icon{width:61px;height:61px}.recent-preview{height:165px}}
+
+/* SirTrosOS visual upgrade */
+:root{--accent:#438cff;--wallpaper:radial-gradient(circle at 12% 12%,#205b9b 0%,transparent 42%),radial-gradient(circle at 88% 82%,#60318b 0%,transparent 45%),linear-gradient(145deg,#07101e,#111d35 60%,#090d18);--surface:rgba(20,29,46,.88)}
+#os{background:var(--wallpaper);filter:none!important}
+#os:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,#ffffff08,transparent 40%,#0002);z-index:0}
+#os>*{z-index:1}
+#status{position:absolute;z-index:130;top:0;left:0;right:0;height:42px;padding:env(safe-area-inset-top) 18px 0;background:linear-gradient(180deg,#07101d66,transparent);backdrop-filter:blur(12px)}
+#home{padding-top:calc(env(safe-area-inset-top) + 48px)}
+#appScreen{top:42px}
+.app-header{height:62px;padding:7px 22px;background:linear-gradient(180deg,#18243a,#111a2b);border-radius:0 0 22px 22px}
+#shade,#recents{top:42px;padding-top:18px}
+#lockScreen{padding-top:calc(env(safe-area-inset-top) + 48px)}
+.app-icon{border-radius:25px;width:68px;height:68px}
+.app{gap:9px}
+.app span{font-size:12px;letter-spacing:.1px}
+.widget{box-shadow:0 18px 45px #0003;position:relative;overflow:hidden}
+.widget:after{content:"";position:absolute;width:130px;height:130px;border-radius:50%;right:-40px;top:-45px;background:#ffffff0a}
+.panel{background:linear-gradient(145deg,#1b2940ed,#101a2bed);border:1px solid #ffffff12;box-shadow:0 12px 32px #0002}
+.action{background:var(--accent);border-radius:18px;box-shadow:0 5px 14px #0002;transition:transform .16s,filter .16s}
+.action:active,.nav-btn:active,.quick:active{transform:scale(.96);filter:brightness(1.15)}
+.field{border-radius:18px;background:#0b1423d9;border:1px solid #ffffff20}
+.setting-row{min-height:62px}
+.setting-row select{max-width:58%;}
+.dial-grid{max-width:310px;gap:12px;margin:18px auto}
+.dial-grid button{width:66px;height:66px;justify-self:center;border-radius:50%;background:linear-gradient(145deg,#253650,#152238);border:1px solid #ffffff18;box-shadow:0 7px 18px #0004;font-size:24px;transition:.15s}
+.dial-grid button:active{transform:scale(.88);background:var(--accent)}
+.phone-actions{display:flex;justify-content:center;gap:12px;align-items:center;margin-top:12px}
+.phone-call{width:68px;height:68px;border-radius:50%;background:linear-gradient(145deg,#45d58d,#138452);display:grid;place-items:center;box-shadow:0 10px 25px #0a5b3c66}
+.phone-call svg{width:27px;height:27px}
+.phone-delete{width:48px;height:48px;border-radius:50%;background:#ffffff18;display:grid;place-items:center}
+.theme-grid,.wallpaper-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:12px}
+.theme-choice,.wallpaper-choice{border:1px solid #ffffff24;border-radius:18px;padding:12px;background:#ffffff0b;text-align:left;min-width:0}
+.theme-choice.selected,.wallpaper-choice.selected{outline:2px solid var(--accent);background:#ffffff18}
+.theme-preview{height:48px;border-radius:12px;margin-bottom:8px;background:linear-gradient(135deg,#438cff,#6739a8)}
+.wallpaper-preview{height:74px;border-radius:12px;margin-bottom:8px;border:1px solid #ffffff20}
+.setting-color{width:34px;height:34px;border-radius:50%;border:2px solid #ffffff77;display:inline-block;margin:5px}
+.widget-toggle{display:flex;gap:8px;align-items:center}
+.widget-preview{margin-top:12px;padding:15px;border-radius:20px;background:#ffffff17;border:1px solid #ffffff1c;backdrop-filter:blur(16px)}
+#customKeyboard{position:absolute;z-index:360;left:0;right:0;bottom:0;display:none;padding:9px 7px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#172238f5,#0a1220f8);border-top:1px solid #ffffff20;box-shadow:0 -15px 40px #0006;backdrop-filter:blur(25px)}
+#customKeyboard.show{display:block}
+.keyboard-row{display:flex;justify-content:center;gap:5px;margin:5px 0}
+.keyboard-key{flex:1;max-width:46px;height:43px;border-radius:12px;background:linear-gradient(145deg,#33445f,#1b2940);box-shadow:0 3px 0 #080e18;color:#fff;font-size:16px;font-weight:800}
+.keyboard-key.wide{max-width:none;flex:1.5;font-size:12px}
+.keyboard-key.space{max-width:none;flex:5}
+.keyboard-key.special{background:#405878}
+.keyboard-key:active{transform:translateY(2px);filter:brightness(1.3)}
+#keyboardSpacer{height:0;transition:height .2s}
+#appContent.keyboard-open{padding-bottom:300px}
+#navigation{z-index:370;background:linear-gradient(180deg,transparent,#060b15a8);}
+#navigation.keyboard-hidden{display:none}
+body.keyboard-active #navigation{display:none}
+body.keyboard-active #appContent{padding-bottom:290px}
+@media(max-width:370px){.app-icon{width:60px;height:60px}.dial-grid button{width:59px;height:59px}.keyboard-key{height:39px;font-size:14px}}
+
 </style>
 </head>
 <body>
@@ -183,15 +237,15 @@ input[type=range]{width:100%;accent-color:#258cff}
   <div class="boot-logo"><span>S</span><span>i</span><span>r</span><span>T</span><span>r</span><span>o</span><span>s</span><span>O</span><span>S</span></div>
   <div class="loading-track"><div class="loading-bar" id="loadingBar"></div></div>
  </div>
- <div class="powered">POWERED BY SIRTROS</div>
+ <div class="powered">POWERED BY <img src="assets/html.png" alt="HTML"></div>
 </div>
 
 <div id="os">
- <div id="home">
   <div id="status">
    <div id="statusTime">12:00</div>
    <div class="status-right"><i data-lucide="wifi"></i><i data-lucide="signal"></i><span id="batteryPercent">--%</span><div class="battery-shape"><div class="battery-fill" id="batteryFill"></div></div><span id="chargingBolt" class="hidden">⚡</span></div>
   </div>
+ <div id="home">
   <div class="home-heading"><h1>SirTrosOS</h1><p id="homeDate">Vítej zpět</p></div>
   <div class="app-grid">
    <button class="app" onclick="openApp('calc')"><div class="app-icon calc"><i data-lucide="calculator"></i></div><span>Kalkulačka</span></button>
@@ -202,12 +256,7 @@ input[type=range]{width:100%;accent-color:#258cff}
    <button class="app" onclick="openApp('notes')"><div class="app-icon notes"><i data-lucide="notebook-pen"></i></div><span>Poznámky</span></button>
    <button class="app" onclick="openApp('translate')"><div class="app-icon translate"><i data-lucide="languages"></i></div><span>Překladač</span></button>
   </div>
-  <div class="widget">
-   <small>SirTrosOS • Systém</small>
-   <strong id="widgetTime">12:00</strong>
-   <p id="widgetDate">Připraveno k použití</p>
-   <div class="charge-widget"><i data-lucide="battery-charging"></i><div><strong id="widgetBattery" style="font-size:17px">Baterie</strong><p id="widgetCharge">Zjišťuji stav baterie…</p></div></div>
-  </div>
+  <div id="homeWidgets"></div>
  </div>
 
  <div id="navigation">
@@ -222,7 +271,6 @@ input[type=range]{width:100%;accent-color:#258cff}
   <div class="lock-battery"><i data-lucide="battery-charging"></i><span id="lockBatteryText">Stav baterie se zjišťuje…</span></div>
   <div class="lock-notification"><strong><i data-lucide="bell"></i> Oznámení</strong><p>Vítej v SirTrosOS. Systém je připraven.</p></div>
   <div class="unlock-hint">Přejeď nahoru nebo klikni pro odemknutí</div>
-  <i data-lucide="fingerprint"></i>
  </div>
 
  <div id="chargingScreen">
@@ -273,6 +321,7 @@ input[type=range]{width:100%;accent-color:#258cff}
    <button class="power-cancel" onclick="hideDialog()">Zrušit</button>
   </div>
  </div>
+ <div id="customKeyboard" aria-label="Klávesnice SirTrosOS"></div>
  <div id="toast"></div>
  <div id="sleepOverlay" onclick="wakeFromSleep()"></div>
 </div>
@@ -285,7 +334,9 @@ let currentApp=null,apps=[],batteryManager=null,batteryLevel=null,isCharging=fal
 let stopwatchStart=null,stopwatchElapsed=0,stopwatchInterval=null,dialNumber="";
 let idleTimer=null,dimTimer=null,sleeping=false,toastTimer=null;
 let brightness=100,volume=70,audioContext=null;
-let settings={sound:true,touch:true,notifications:true,volume:70};
+let osTheme="midnight",osWallpaper="aurora",customWallpaperColor="#438cff",systemLanguage="cs";
+let widgets={clock:true,battery:true,system:true,memo:false};
+let settings={sound:true,touch:true,notifications:true,haptics:true,animations:true,keyboard:true,keySounds:false,volume:70};
 let quickState={wifi:true,bluetooth:true,dnd:false,flash:false,airplane:false,batterySaver:false};
 let notes=[];
 try{notes=JSON.parse(localStorage.getItem("sirtros_notes")||"[]");if(!Array.isArray(notes))notes=[]}catch(e){notes=[]}
@@ -294,6 +345,7 @@ const appTitles={calc:"Kalkulačka",settings:"Nastavení",clock:"Hodiny",message
 const appIcons={calc:"calculator",settings:"settings",clock:"clock",messages:"message-circle",phone:"phone",notes:"notebook-pen",translate:"languages"};
 function icons(){if(window.lucide)lucide.createIcons()}
 icons();
+$("status").addEventListener("click",()=>{if(stage>=2&&$("lockScreen").style.display==="none")toggleShade()});
 
 function initAudio(){
  try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audioContext)audioContext=new AC();if(audioContext.state==="suspended")audioContext.resume()}catch(e){}
@@ -341,23 +393,25 @@ document.addEventListener("pointercancel",endHold);
 function beginBoot(){
  $("blackScreen").style.display="none";$("bootScreen").style.display="block";$("loadingBar").style.width="0%";
  requestAnimationFrame(()=>{$("bootScreen").style.opacity="1";playSound("startup")});
- const start=performance.now(),duration=6500;
- function update(now){const p=Math.min((now-start)/duration,1);$("loadingBar").style.width=((1-Math.pow(1-p,3))*100)+"%";if(p<1)requestAnimationFrame(update);else setTimeout(finishBoot,350)}
+ const start=performance.now(),duration=30000;
+ const steps=[0,.035,.105,.14,.235,.29,.405,.47,.585,.64,.755,.82,.91,1];
+ const times=[0,.7,2.1,3.8,6.2,8.5,11.4,14.2,17.1,19.8,22.4,25.1,27.4,30];
+ function update(now){const elapsed=Math.min((now-start)/1000,30);let i=0;while(i<times.length-2&&elapsed>times[i+1])i++;const span=times[i+1]-times[i],part=Math.max(0,Math.min(1,(elapsed-times[i])/span));const eased=part*part*(3-2*part),progress=steps[i]+(steps[i+1]-steps[i])*eased;$("loadingBar").style.width=(progress*100)+"%";if(elapsed<30)requestAnimationFrame(update);else setTimeout(finishBoot,350)}
  requestAnimationFrame(update);
 }
 function finishBoot(){
  $("bootScreen").style.opacity="0";
  setTimeout(()=>{
   $("bootScreen").style.display="none";$("os").style.display="block";$("lockScreen").style.display="flex";$("home").style.display="block";
-  stage=2;currentApp=null;updateTime();icons();resetIdle();keepAwake();
+  stage=2;currentApp=null;updateTime();loadAppearance();renderHomeWidgets();icons();resetIdle();keepAwake();
  },700);
 }
 
 function updateTime(){
  const n=new Date(),time=n.toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"}),date=n.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long"});
- $("statusTime").textContent=time;$("widgetTime").textContent=time;$("lockTime").textContent=time;
+ $("statusTime").textContent=time;if($("widgetTime"))$("widgetTime").textContent=time;$("lockTime").textContent=time;
  $("lockDate").textContent=date;$("homeDate").textContent=date.charAt(0).toUpperCase()+date.slice(1);
- $("lockDateSmall").textContent=n.toLocaleDateString("cs-CZ",{day:"numeric",month:"long"});$("widgetDate").textContent=date;$("shadeDate").textContent=date;
+ $("lockDateSmall").textContent=n.toLocaleDateString("cs-CZ",{day:"numeric",month:"long"});if($("widgetDate"))$("widgetDate").textContent=date;$("shadeDate").textContent=date;
 }
 setInterval(updateTime,1000);updateTime();
 
@@ -366,8 +420,8 @@ function renderBattery(){
  $("batteryPercent").textContent=p===null?"--%":p+"%";
  $("batteryFill").style.width=p===null?"0%":p+"%";
  $("chargingBolt").classList.toggle("hidden",!isCharging);
- $("widgetBattery").textContent=p===null?"Baterie nedostupná":p+" %";
- $("widgetCharge").textContent=p===null?"Prohlížeč neposkytuje informace o baterii":isCharging?"Nabíjí se":"Nenabíjí se";
+ if($("widgetBattery"))$("widgetBattery").textContent=p===null?"Baterie nedostupná":p+" %";
+ if($("widgetCharge"))$("widgetCharge").textContent=p===null?"Prohlížeč neposkytuje informace o baterii":isCharging?"Nabíjí se":"Nenabíjí se";
  $("lockBatteryText").textContent=p===null?"Stav baterie není dostupný":(isCharging?"Nabíjí se • ":"Baterie • ")+p+" %";
  $("chargePercent").textContent=p===null?"--%":p+"%";$("heroBatteryLevel").style.height=(p||0)+"%";
  $("chargeLabel").textContent=isCharging?"Nabíjí se":"Napájení odpojeno";
@@ -410,7 +464,7 @@ function openApp(name){
  if(name==="translate")renderTranslate(root);
  icons();resetIdle();
 }
-function closeApp(){$("appScreen").style.display="none";$("home").style.display="block";currentApp=null;resetIdle()}
+function closeApp(){hideKeyboard(false);$("appScreen").style.display="none";$("home").style.display="block";currentApp=null;resetIdle()}
 function goHome(){
  if($("shade").style.display==="block"){$("shade").style.display="none";return}
  if($("recents").style.display==="block"){$("recents").style.display="none";return}
@@ -464,14 +518,33 @@ function calcDelete(){$("calcDisplay").value=$("calcDisplay").value.slice(0,-1)|
 function calcResult(){const d=$("calcDisplay");try{if(!/^[0-9+\-*/%.() ]+$/.test(d.value))throw 0;const r=Function('"use strict";return ('+d.value+')')();if(!Number.isFinite(r))throw 0;d.value=String(Math.round(r*1e10)/1e10)}catch(e){d.value="Chyba"}}
 
 function renderSettings(root){
- root.innerHTML=`<div class="panel"><h3>Displej</h3><div class="setting-row"><div><strong>Jas displeje</strong><small>Uprav jas systému</small></div><b id="brightnessSetting">${brightness}%</b></div><input type="range" min="25" max="100" value="${brightness}" oninput="setBrightness(this.value);$('brightnessSetting').textContent=brightness+'%'"></div>
- <div class="panel"><h3>Zvuk</h3>${settingToggle("Zvuky systému","sound")}${settingToggle("Zvuky dotyku","touch")}</div>
- <div class="panel"><h3>Jazyk</h3><select class="field" id="languageSelect" onchange="changeLanguage(this.value)"><option value="cs">Čeština</option><option value="en">English</option></select></div>
- <div class="panel"><h3>Baterie</h3><p class="muted" id="batterySettingText">Načítám stav baterie…</p><button class="action" onclick="showChargingScreen()">Zobrazit obrazovku nabíjení</button></div>
- <div class="panel"><h3>O zařízení</h3><p class="muted">SirTrosOS<br>Verze 1.0<br>Mobilní webový systém</p></div>`;
- $("languageSelect").value="cs";
+ const themes=[['midnight','Půlnoc','#438cff'],['ocean','Oceán','#20b9d5'],['purple','Fialová','#a477ff'],['emerald','Smaragd','#25c58b'],['rose','Růžová','#ed72a5'],['sunset','Západ slunce','#ff9b55'],['crimson','Rubín','#f05a70'],['ice','Ledová','#8dcfff']];
+ const walls=[['aurora','Aurora','radial-gradient(circle at 15% 15%,#2366a9,transparent 44%),radial-gradient(circle at 85% 80%,#6a3b94,transparent 45%),linear-gradient(145deg,#07101e,#111d35)'],['ocean','Deep ocean','linear-gradient(145deg,#041d37,#075b75,#101b39)'],['sunset','Sunset','linear-gradient(145deg,#4a1d50,#b34c54,#f19a5a)'],['forest','Forest','radial-gradient(circle at 20% 15%,#286b53,transparent 45%),linear-gradient(145deg,#071b19,#163d34)'],['violet','Nebula','radial-gradient(circle at 75% 25%,#8a45a8,transparent 40%),linear-gradient(145deg,#160f35,#36205e)'],['dark','Minimal dark','linear-gradient(145deg,#080b12,#171d29)'],['blue','Blue glass','radial-gradient(circle at 80% 15%,#347fd1,transparent 45%),linear-gradient(145deg,#071b38,#142b52)'],['pink','Dream','radial-gradient(circle at 20% 20%,#d66eae,transparent 40%),linear-gradient(145deg,#301c4d,#754b85)']];
+ root.innerHTML=`
+ <div class="panel"><h3><i data-lucide="palette"></i> Motiv systému</h3><p class="muted">Vyber barevný styl celého systému.</p><div class="theme-grid">${themes.map(t=>`<button class="theme-choice ${osTheme===t[0]?'selected':''}" onclick="setTheme('${t[0]}')"><div class="theme-preview" style="background:linear-gradient(135deg,${t[2]},#111827)"></div><strong>${t[1]}</strong></button>`).join('')}</div></div>
+ <div class="panel"><h3><i data-lucide="image"></i> Pozadí plochy</h3><p class="muted">Pozadí se změní na domovské obrazovce i za aplikacemi.</p><div class="wallpaper-grid">${walls.map(w=>`<button class="wallpaper-choice ${osWallpaper===w[0]?'selected':''}" onclick="setWallpaper('${w[0]}')"><div class="wallpaper-preview" style="background:${w[2]}"></div><strong>${w[1]}</strong></button>`).join('')}</div><p class="muted" style="margin-top:13px">Vlastní barva pozadí</p><input type="color" class="field" value="${customWallpaperColor}" onchange="setCustomWallpaper(this.value)" style="height:52px;padding:5px"></div>
+ <div class="panel"><h3><i data-lucide="sliders-horizontal"></i> Vzhled a displej</h3><div class="setting-row"><div><strong>Jas displeje</strong><small>Úroveň jasu systému</small></div><b id="brightnessSetting">${brightness}%</b></div><input type="range" min="25" max="100" value="${brightness}" oninput="setBrightness(this.value);$('brightnessSetting').textContent=brightness+'%'"><div class="setting-row"><div><strong>Velikost ikon</strong><small>Rozložení plochy</small></div><select class="field" style="width:115px;margin:0" onchange="setIconSize(this.value)"><option value="normal">Normální</option><option value="large">Velké</option><option value="small">Malé</option></select></div><div class="setting-row"><div><strong>Animace</strong><small>Plynulé přechody</small></div>${settingToggle('','animations')}</div></div>
+ <div class="panel"><h3><i data-lucide="layout-dashboard"></i> Widgety na ploše</h3><p class="muted">Zapni widgety, které chceš zobrazovat na domovské obrazovce.</p>${widgetToggle('Hodiny a datum','clock')}${widgetToggle('Informace o baterii','battery')}${widgetToggle('Stav SirTrosOS','system')}${widgetToggle('Rychlé poznámky','memo')}<div class="widget-preview"><small>NÁHLED PLOCHY</small><strong style="display:block;font-size:25px;margin-top:6px">${new Date().toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}</strong><span class="muted">Widgety se zobrazí pod ikonami aplikací.</span></div></div>
+ <div class="panel"><h3><i data-lucide="volume-2"></i> Zvuk a ovládání</h3>${settingToggle('Zvuky systému','sound')}${settingToggle('Zvuky dotyku','touch')}${settingToggle('Vibrace při ovládání','haptics')}<div class="setting-row"><div><strong>Hlasitost</strong><small>Hlasitost zvuků</small></div><b id="settingsVolume">${volume}%</b></div><input type="range" min="0" max="100" value="${volume}" oninput="setVolume(this.value);$('settingsVolume').textContent=volume+'%'"></div>
+ <div class="panel"><h3><i data-lucide="keyboard"></i> Klávesnice SirTros</h3><p class="muted">Vlastní klávesnice pro psaní v aplikacích.</p>${settingToggle('Automaticky zobrazovat klávesnici','keyboard')}${settingToggle('Zvuky kláves','keySounds')}<button class="action secondary" onclick="previewKeyboard()">Vyzkoušet klávesnici</button></div>
+ <div class="panel"><h3><i data-lucide="globe"></i> Jazyk systému</h3><select class="field" id="languageSelect" onchange="changeLanguage(this.value)"><option value="cs">Čeština</option><option value="en">English</option></select><p class="muted">Překladač podporuje 16 jazyků.</p></div>
+ <div class="panel"><h3><i data-lucide="battery-charging"></i> Baterie</h3><p class="muted">${batteryLevel===null?'Informace o baterii nejsou v tomto prohlížeči dostupné.':batteryLevel+' % • '+(isCharging?'Nabíjí se':'Nenabíjí se')}</p><button class="action" onclick="showChargingScreen()">Obrazovka nabíjení</button></div>
+ <div class="panel"><h3><i data-lucide="info"></i> O zařízení</h3><p class="muted">SirTrosOS<br>Verze 2.0 • Webový mobilní systém<br>Vytvořeno SirTros</p><button class="action secondary" onclick="resetAppearance()">Obnovit vzhled</button></div>`;
+ $('languageSelect').value=systemLanguage;
 }
-function settingToggle(label,key){return `<div class="setting-row"><div><strong>${label}</strong></div><button class="switch ${settings[key]?"on":""}" onclick="toggleSetting('${key}',this)" aria-label="${label}"></button></div>`}
+function widgetToggle(label,key){return `<div class="setting-row"><div><strong>${label}</strong></div><button class="switch ${widgets[key]?'on':''}" onclick="toggleWidget('${key}',this)" aria-label="${label}"></button></div>`}
+function setTheme(name){osTheme=name;const t={midnight:'#438cff',ocean:'#20b9d5',purple:'#a477ff',emerald:'#25c58b',rose:'#ed72a5',sunset:'#ff9b55',crimson:'#f05a70',ice:'#8dcfff'};document.documentElement.style.setProperty('--accent',t[name]||t.midnight);document.querySelectorAll('.theme-choice').forEach(x=>x.classList.remove('selected'));event.currentTarget?.classList.add('selected');saveAppearance();toast('Motiv změněn')}
+function setWallpaper(name){osWallpaper=name;const w={aurora:'radial-gradient(circle at 15% 15%,#2366a9,transparent 44%),radial-gradient(circle at 85% 80%,#6a3b94,transparent 45%),linear-gradient(145deg,#07101e,#111d35)',ocean:'linear-gradient(145deg,#041d37,#075b75,#101b39)',sunset:'linear-gradient(145deg,#4a1d50,#b34c54,#f19a5a)',forest:'radial-gradient(circle at 20% 15%,#286b53,transparent 45%),linear-gradient(145deg,#071b19,#163d34)',violet:'radial-gradient(circle at 75% 25%,#8a45a8,transparent 40%),linear-gradient(145deg,#160f35,#36205e)',dark:'linear-gradient(145deg,#080b12,#171d29)',blue:'radial-gradient(circle at 80% 15%,#347fd1,transparent 45%),linear-gradient(145deg,#071b38,#142b52)',pink:'radial-gradient(circle at 20% 20%,#d66eae,transparent 40%),linear-gradient(145deg,#301c4d,#754b85)'};document.documentElement.style.setProperty('--wallpaper',w[name]||w.aurora);document.querySelectorAll('.wallpaper-choice').forEach(x=>x.classList.remove('selected'));event.currentTarget?.classList.add('selected');saveAppearance();toast('Pozadí změněno')}
+function setCustomWallpaper(color){customWallpaperColor=color;osWallpaper='custom';document.documentElement.style.setProperty('--wallpaper',`radial-gradient(circle at 20% 20%,${color},transparent 60%),linear-gradient(145deg,#080b12,#172238)`);saveAppearance()}
+function setIconSize(v){document.documentElement.dataset.iconSize=v;localStorage.setItem('sirtros_icon_size',v)}
+function toggleWidget(key,el){widgets[key]=!widgets[key];el.classList.toggle('on',widgets[key]);saveAppearance();renderHomeWidgets()}
+function saveAppearance(){try{localStorage.setItem('sirtros_appearance',JSON.stringify({osTheme,osWallpaper,customWallpaperColor,widgets}))}catch(e){}}
+function loadAppearance(){try{const a=JSON.parse(localStorage.getItem('sirtros_appearance')||'{}');osTheme=a.osTheme||'midnight';osWallpaper=a.osWallpaper||'aurora';customWallpaperColor=a.customWallpaperColor||'#438cff';widgets={...widgets,...(a.widgets||{})};}catch(e){}applyAppearance();const size=localStorage.getItem('sirtros_icon_size');if(size)setIconSize(size)}
+function applyAppearance(){const t={midnight:'#438cff',ocean:'#20b9d5',purple:'#a477ff',emerald:'#25c58b',rose:'#ed72a5',sunset:'#ff9b55',crimson:'#f05a70',ice:'#8dcfff'};document.documentElement.style.setProperty('--accent',t[osTheme]||t.midnight);const w={aurora:'radial-gradient(circle at 15% 15%,#2366a9,transparent 44%),radial-gradient(circle at 85% 80%,#6a3b94,transparent 45%),linear-gradient(145deg,#07101e,#111d35)',ocean:'linear-gradient(145deg,#041d37,#075b75,#101b39)',sunset:'linear-gradient(145deg,#4a1d50,#b34c54,#f19a5a)',forest:'radial-gradient(circle at 20% 15%,#286b53,transparent 45%),linear-gradient(145deg,#071b19,#163d34)',violet:'radial-gradient(circle at 75% 25%,#8a45a8,transparent 40%),linear-gradient(145deg,#160f35,#36205e)',dark:'linear-gradient(145deg,#080b12,#171d29)',blue:'radial-gradient(circle at 80% 15%,#347fd1,transparent 45%),linear-gradient(145deg,#071b38,#142b52)',pink:'radial-gradient(circle at 20% 20%,#d66eae,transparent 40%),linear-gradient(145deg,#301c4d,#754b85)'};document.documentElement.style.setProperty('--wallpaper',osWallpaper==='custom'?`radial-gradient(circle at 20% 20%,${customWallpaperColor},transparent 60%),linear-gradient(145deg,#080b12,#172238)`:w[osWallpaper]||w.aurora);}
+function resetAppearance(){osTheme='midnight';osWallpaper='aurora';customWallpaperColor='#438cff';widgets={clock:true,battery:true,system:true,memo:false};applyAppearance();saveAppearance();openApp('settings');toast('Vzhled obnoven')}
+function renderHomeWidgets(){const old=$('homeWidgets');if(!old)return;let html='';if(widgets.clock)html+=`<div class="widget"><small>SirTrosOS • ČAS</small><strong id="widgetTime">${new Date().toLocaleTimeString('cs-CZ',{hour:'2-digit',minute:'2-digit'})}</strong><p id="widgetDate">${new Date().toLocaleDateString('cs-CZ',{weekday:'long',day:'numeric',month:'long'})}</p></div>`;if(widgets.battery)html+=`<div class="widget"><small>NAPÁJENÍ</small><div class="charge-widget"><i data-lucide="battery-charging"></i><div><strong id="widgetBattery" style="font-size:20px">${batteryLevel===null?'Baterie':batteryLevel+' %'}</strong><p id="widgetCharge">${batteryLevel===null?'Informace nedostupné':isCharging?'Nabíjí se':'Nenabíjí se'}</p></div></div></div>`;if(widgets.system)html+=`<div class="widget"><small>SIRTROSOS • SYSTÉM</small><strong style="font-size:21px">Systém připraven</strong><p>Všechny aplikace jsou dostupné.</p></div>`;if(widgets.memo)html+=`<div class="widget"><small>RYCHLÁ POZNÁMKA</small><textarea class="field" id="quickMemo" rows="2" placeholder="Napiš si něco…" onblur="localStorage.setItem('sirtros_quickmemo',this.value)">${escapeHTML(localStorage.getItem('sirtros_quickmemo')||'')}</textarea></div>`;old.innerHTML=html;icons()}
+
+function settingToggle(label,key){return `<div class="setting-row"><div>${label?`<strong>${label}</strong>`:`<strong>${key}</strong>`}</div><button class="switch ${settings[key]?"on":""}" onclick="toggleSetting('${key}',this)" aria-label="${label}"></button></div>`}
 function toggleSetting(key,el){settings[key]=!settings[key];el.classList.toggle("on",settings[key])}
 function setBrightness(v){
  brightness=Math.max(25,Math.min(100,Number(v)||100));
@@ -498,10 +571,10 @@ function renderMessages(root){
 function sendMessage(){const i=$("messageInput"),v=i.value.trim();if(!v)return;const d=document.createElement("div");d.className="message mine";d.textContent=v;$("messageList").append(d);i.value=""}
 
 function renderPhone(root){
- root.innerHTML=`<div class="panel"><h3>Telefon</h3><div class="dial-display" id="dialDisplay"></div><div class="dial-grid">${["1","2","3","4","5","6","7","8","9","*","0","#"].map(x=>`<button onclick="dialInput('${x}')">${x}</button>`).join("")}</div><button class="action" onclick="toast('Volání není v tomto webovém systému dostupné')">Volat</button><button class="action secondary" onclick="dialNumber='';updateDial()">Smazat</button></div>`;
+ root.innerHTML=`<div class="panel" style="text-align:center"><h3>Telefon</h3><div class="dial-display" id="dialDisplay">Zadej číslo</div><div class="dial-grid">${["1","2","3","4","5","6","7","8","9","*","0","#"].map(x=>`<button onclick="dialInput('${x}')">${x}</button>`).join("")}</div><div class="phone-actions"><button class="phone-delete" onclick="dialNumber=dialNumber.slice(0,-1);updateDial()" aria-label="Smazat znak"><i data-lucide="delete"></i></button><button class="phone-call" onclick="toast('Volání není v tomto webovém systému dostupné')" aria-label="Volat"><i data-lucide="phone"></i></button><button class="phone-delete" onclick="dialNumber='';updateDial()" aria-label="Vymazat číslo"><i data-lucide="x"></i></button></div><p class="muted" style="margin-top:14px">Telefonní hovory nejsou v simulaci dostupné.</p></div>`;
 }
 function dialInput(v){dialNumber+=v;updateDial()}
-function updateDial(){if($("dialDisplay"))$("dialDisplay").textContent=dialNumber}
+function updateDial(){if($("dialDisplay"))$("dialDisplay").textContent=dialNumber||"Zadej číslo"}
 
 function renderNotes(root){
  root.innerHTML=`<div class="panel"><h3>Nová poznámka</h3><input class="field" id="noteTitle" placeholder="Název poznámky"><textarea class="field" id="noteText" rows="4" placeholder="Text poznámky…" style="resize:vertical;user-select:text"></textarea><button class="action" onclick="saveNote()">Uložit poznámku</button></div><div id="notesList"></div>`;
@@ -521,18 +594,32 @@ function drawNotes(){
 function deleteNote(id){notes=notes.filter(n=>n.id!==id);try{localStorage.setItem("sirtros_notes",JSON.stringify(notes))}catch(e){}drawNotes()}
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 
-let translateDirection="cs-en";
+const translateLanguages=[
+ {code:"cs",name:"Čeština"},{code:"en",name:"English"},{code:"sk",name:"Slovenčina"},
+ {code:"de",name:"Deutsch"},{code:"pl",name:"Polski"},{code:"fr",name:"Français"},
+ {code:"es",name:"Español"},{code:"it",name:"Italiano"},{code:"pt",name:"Português"},
+ {code:"ru",name:"Русский"},{code:"uk",name:"Українська"},{code:"ja",name:"日本語"},
+ {code:"zh-CN",name:"中文"},{code:"nl",name:"Nederlands"},{code:"tr",name:"Türkçe"},
+ {code:"ar",name:"العربية"}
+];
+let translateDirection={from:"cs",to:"en"};
 function renderTranslate(root){
- root.innerHTML=`<div class="panel"><h3>Chytrý překladač</h3><p class="muted">Čeština a angličtina</p><div class="language-bar" style="display:flex;align-items:center;gap:8px;margin:15px 0"><span id="sourceLanguage">Čeština</span><button class="action" onclick="swapTranslateDirection()">⇄</button><span id="targetLanguage">English</span></div><textarea id="translateInput" class="field" rows="5" maxlength="5000" placeholder="Napiš text k překladu…" style="resize:vertical;user-select:text"></textarea><button class="action" onclick="translateText()" id="translateButton">Přeložit</button><div class="panel" style="margin-top:15px"><h3>Výsledek</h3><div id="translateOutput" style="overflow-wrap:anywhere">Překlad se zobrazí tady.</div></div></div>`;
+ const options=translateLanguages.map(l=>`<option value="${l.code}">${l.name}</option>`).join("");
+ root.innerHTML=`<div class="panel"><h3>Chytrý překladač</h3><p class="muted">Vyber jazyk, ze kterého a do kterého chceš překládat</p><div class="language-bar" style="display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:7px;margin:15px 0"><select class="field" id="translateFrom" aria-label="Jazyk zdroje">${options}</select><button class="action" onclick="swapTranslateDirection()" aria-label="Prohodit jazyky">⇄</button><select class="field" id="translateTo" aria-label="Cílový jazyk">${options}</select></div><textarea id="translateInput" class="field" rows="5" maxlength="5000" placeholder="Napiš text k překladu…" style="resize:vertical;user-select:text"></textarea><button class="action" onclick="translateText()" id="translateButton">Přeložit</button><div class="panel" style="margin-top:15px"><h3>Výsledek</h3><div id="translateOutput" style="overflow-wrap:anywhere">Překlad se zobrazí tady.</div><button class="action secondary" onclick="copyTranslation()">Kopírovat překlad</button></div></div>`;
+ $("translateFrom").value=translateDirection.from;$("translateTo").value=translateDirection.to;
+ $("translateFrom").addEventListener("change",()=>{translateDirection.from=$("translateFrom").value;resetTranslation()});
+ $("translateTo").addEventListener("change",()=>{translateDirection.to=$("translateTo").value;resetTranslation()});
 }
-function updateTranslateLabels(){$("sourceLanguage").textContent=translateDirection==="cs-en"?"Čeština":"English";$("targetLanguage").textContent=translateDirection==="cs-en"?"English":"Čeština"}
-function swapTranslateDirection(){translateDirection=translateDirection==="cs-en"?"en-cs":"cs-en";updateTranslateLabels();$("translateOutput").textContent="Překlad se zobrazí tady."}
+function resetTranslation(){if($("translateOutput"))$("translateOutput").textContent="Překlad se zobrazí tady."}
+function swapTranslateDirection(){const from=$("translateFrom"),to=$("translateTo"),old=from.value;from.value=to.value;to.value=old;translateDirection={from:from.value,to:to.value};resetTranslation()}
+function copyTranslation(){const value=$("translateOutput")?.textContent||"";if(!value||value==="Překlad se zobrazí tady."){toast("Nejdřív přelož text");return}if(navigator.clipboard?.writeText)navigator.clipboard.writeText(value).then(()=>toast("Překlad zkopírován")).catch(()=>toast("Kopírování není dostupné"));else toast("Kopírování není v tomto prohlížeči dostupné")}
 async function translateText(){
  const v=$("translateInput").value.trim(),out=$("translateOutput"),btn=$("translateButton");
  if(!v){toast("Nejdřív napiš text");return}
+ if(translateDirection.from===translateDirection.to){toast("Vyber dva různé jazyky");return}
  btn.disabled=true;btn.textContent="Překládám…";out.textContent="Překládám text…";
- try{const pair=translateDirection==="cs-en"?"cs|en":"en|cs",r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(v)+"&langpair="+pair);if(!r.ok)throw Error();const d=await r.json();if(!d.responseData?.translatedText)throw Error();out.textContent=d.responseData.translatedText}
- catch(e){out.textContent="Překlad se nepodařilo načíst. Zkontroluj připojení k internetu."}
+ try{const pair=encodeURIComponent(translateDirection.from+"|"+translateDirection.to);const r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(v)+"&langpair="+pair);if(!r.ok)throw Error("network");const d=await r.json();if(d.responseStatus&&d.responseStatus!==200)throw Error("service");if(!d.responseData?.translatedText)throw Error("empty");out.textContent=d.responseData.translatedText}
+ catch(e){out.textContent="Překlad se nepodařilo načíst. Zkontroluj připojení nebo zkus jinou jazykovou kombinaci."}
  finally{btn.disabled=false;btn.textContent="Přeložit"}
 }
 
