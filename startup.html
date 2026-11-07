@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
 <title>SirTrosOS</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
@@ -204,7 +205,10 @@ button {
         <div class="start-logo">
             <span class="blue">S</span>ir<span class="blue">T</span>ros<span class="blue">OS</span>
         </div>
-        <button class="start-button" id="startButton">START</button>
+
+        <button class="start-button" id="startButton">
+            START
+        </button>
     </div>
 </div>
 
@@ -250,6 +254,31 @@ let stage = 0;
 let holdTimer = null;
 let holding = false;
 let completed = false;
+let wakeLock = null;
+
+/* ZABRÁNĚNÍ USÍNÁNÍ DISPLEJE */
+async function keepScreenAwake() {
+    if (!("wakeLock" in navigator)) return;
+
+    try {
+        if (wakeLock && !wakeLock.released) return;
+
+        wakeLock = await navigator.wakeLock.request("screen");
+
+        wakeLock.addEventListener("release", () => {
+            wakeLock = null;
+        });
+    } catch (error) {
+        console.log("Wake Lock není dostupný:", error);
+    }
+}
+
+/* OBNOVENÍ WAKE LOCKU */
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible" && stage >= 1) {
+        keepScreenAwake();
+    }
+});
 
 /* PRVNÍ KLIKNUTÍ – FULLSCREEN */
 startButton.addEventListener("click", async () => {
@@ -257,11 +286,17 @@ startButton.addEventListener("click", async () => {
 
     stage = 1;
 
+    // Aktivace ochrany displeje
+    keepScreenAwake();
+
+    // Fullscreen
     if (!document.fullscreenElement &&
         document.documentElement.requestFullscreen) {
         try {
             await document.documentElement.requestFullscreen();
-        } catch (e) {}
+        } catch (error) {
+            console.log("Fullscreen není dostupný:", error);
+        }
     }
 
     startScreen.style.display = "none";
@@ -281,7 +316,7 @@ function beginHold(event) {
         completed = true;
         holding = false;
 
-        // Vibrace při úspěšném podržení
+        // Vibrace
         if (navigator.vibrate) {
             navigator.vibrate([100, 70, 100]);
         }
