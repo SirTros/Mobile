@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -6,72 +5,46 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#080b12">
 <title>SirTrosOS</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
-:root{
- --blue:#258cff;
- --bg:#080b12;
- --panel:#151d2c;
- --text:#fff;
- --muted:#a9b5c8;
- --wallpaper:radial-gradient(circle at 15% 15%,#174b83 0%,transparent 43%),radial-gradient(circle at 85% 80%,#49246f 0%,transparent 45%),linear-gradient(145deg,#07101e,#101a31 60%,#090d18);
- --brightness:1;
-}
-html,body{height:100%;width:100%;overflow:hidden;background:#000;color:var(--text);font-family:Nunito,sans-serif;touch-action:pan-y}
-button,input,select,textarea{font:inherit}
-button{border:0;color:inherit;cursor:pointer}
-input,textarea,select{color:white}
+:root{--blue:#258cff;--bg:#080b12;--panel:#151d2c;--text:#fff;--muted:#a9b5c8;--brightness:1}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;color:white;font-family:Nunito,sans-serif;touch-action:pan-y}
+button,input,textarea,select{font:inherit;color:inherit}
+button{border:0;cursor:pointer}
 .hidden{display:none!important}
-#os{position:fixed;inset:0;display:none;overflow:hidden;background:var(--wallpaper);filter:brightness(var(--brightness))}
-#home{position:absolute;inset:0;overflow:auto;padding:env(safe-area-inset-top) 19px 100px;background:var(--wallpaper)}
 #startScreen,#blackScreen,#bootScreen{position:fixed;inset:0;background:#05070c;z-index:1000}
 #startScreen{display:flex;align-items:center;justify-content:center}
-.start-content{text-align:center;transform:translateY(-35px)}
+.start-content{text-align:center;transform:translateY(-30px)}
 .start-logo{font-size:clamp(50px,11vw,80px);font-weight:900;letter-spacing:-4px;margin-bottom:35px}
 .blue{color:var(--blue)}
-.start-button{background:var(--blue);padding:15px 65px;border-radius:18px;font-weight:900;font-size:17px}
-.start-button:active{transform:scale(.95)}
+.start-button{background:var(--blue);padding:15px 65px;border-radius:18px;font-weight:900}
 #blackScreen{display:none;z-index:1001;touch-action:none}
-#bootScreen{display:none;opacity:0;z-index:1002;transition:opacity .8s}
-.center-content{position:absolute;top:34%;left:50%;transform:translateX(-50%);width:92%;display:flex;flex-direction:column;align-items:center}
-.boot-logo{display:flex;white-space:nowrap;font-size:clamp(37px,10vw,78px);font-weight:900;letter-spacing:-3px}
-.boot-logo span{opacity:0;transform:translateY(14px);animation:letterIn .55s ease forwards}
-.boot-logo span:nth-child(1){animation-delay:.1s}.boot-logo span:nth-child(2){animation-delay:.2s}
-.boot-logo span:nth-child(3){animation-delay:.3s}.boot-logo span:nth-child(4){animation-delay:.4s}
-.boot-logo span:nth-child(5){animation-delay:.5s}.boot-logo span:nth-child(6){animation-delay:.6s}
-.boot-logo span:nth-child(7){animation-delay:.7s}.boot-logo span:nth-child(8){animation-delay:.8s}
-.boot-logo span:nth-child(9){animation-delay:.9s}
-@keyframes letterIn{to{opacity:1;transform:translateY(0)}}
-.loading-track{width:85%;height:5px;background:#292929;border-radius:20px;overflow:hidden;margin-top:25px}
-.loading-bar{height:100%;width:0;background:#fff;border-radius:20px;transition:width .1s}
-.bottom-powered{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:9px;white-space:nowrap}
-.powered-text{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:2px}
-.html-logo{width:32px;height:36px;object-fit:contain}
-
-/* STATUS BAR */
-#status{height:39px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;position:relative;z-index:20;font-size:13px;font-weight:900}
-.status-left,.status-right{display:flex;align-items:center;gap:9px}
-.status-icons{display:flex;align-items:center;gap:5px}
-.status-icons svg{width:14px;height:14px}
+#bootScreen{display:none;opacity:0;z-index:1002;transition:opacity .7s}
+.center-content{position:absolute;top:35%;left:50%;transform:translateX(-50%);width:92%;display:flex;flex-direction:column;align-items:center}
+.boot-logo{font-size:clamp(37px,10vw,70px);font-weight:900;white-space:nowrap;letter-spacing:-3px}
+.boot-logo span{display:inline-block;opacity:0;animation:letter .5s ease forwards}
+.boot-logo span:nth-child(1){animation-delay:.1s}.boot-logo span:nth-child(2){animation-delay:.2s}.boot-logo span:nth-child(3){animation-delay:.3s}.boot-logo span:nth-child(4){animation-delay:.4s}.boot-logo span:nth-child(5){animation-delay:.5s}.boot-logo span:nth-child(6){animation-delay:.6s}.boot-logo span:nth-child(7){animation-delay:.7s}.boot-logo span:nth-child(8){animation-delay:.8s}.boot-logo span:nth-child(9){animation-delay:.9s}
+@keyframes letter{to{opacity:1;transform:translateY(0)}}
+.loading-track{width:85%;height:5px;background:#292929;border-radius:20px;overflow:hidden;margin-top:28px}
+.loading-bar{height:100%;width:0;background:white;transition:width .1s}
+.powered{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:var(--blue);font-size:12px;font-weight:900;letter-spacing:2px;white-space:nowrap}
+#os{position:fixed;inset:0;display:none;overflow:hidden;background:radial-gradient(circle at 15% 15%,#174b83 0%,transparent 43%),radial-gradient(circle at 85% 80%,#49246f 0%,transparent 45%),linear-gradient(145deg,#07101e,#101a31 60%,#090d18);filter:brightness(var(--brightness));transition:filter .5s}
+#home{position:absolute;inset:0;overflow:auto;padding:env(safe-area-inset-top) 19px 90px}
+#status{height:39px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;font-size:13px;font-weight:900}
+.status-right{display:flex;align-items:center;gap:7px}
 .status-right svg{width:16px;height:16px}
-.battery-status{display:flex;align-items:center;gap:4px}
 .battery-shape{width:24px;height:12px;border:1.5px solid white;border-radius:3px;padding:1px;position:relative}
-.battery-shape:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:4px;background:white;border-radius:0 2px 2px 0}
-.battery-fill{height:100%;width:50%;background:#fff;border-radius:1px;transition:width .3s}
-.charging-bolt{color:#69e59a;font-size:12px}
-
-/* HOME */
-.home-heading{margin:32px 0 25px}
+.battery-shape:after{content:"";position:absolute;right:-4px;top:3px;width:2px;height:4px;background:white}
+.battery-fill{height:100%;width:50%;background:white;border-radius:2px}
+.home-heading{margin:28px 0 25px}
 .home-heading h1{font-size:35px;font-weight:900;letter-spacing:-1.5px}
-.home-heading p{color:#d0d8e6;font-size:14px;margin-top:4px}
+.home-heading p{font-size:14px;color:#d0d8e6;margin-top:4px}
 .app-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 12px}
 .app{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;min-width:0}
-.app-icon{width:65px;height:65px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:#ffffff18;border:1px solid #ffffff19;backdrop-filter:blur(18px);box-shadow:0 8px 25px #0003;transition:transform .15s}
+.app-icon{width:65px;height:65px;border-radius:23px;display:flex;align-items:center;justify-content:center;border:1px solid #ffffff19;box-shadow:0 9px 25px #0004,inset 0 1px #ffffff35;backdrop-filter:blur(18px);transition:transform .15s}
 .app:active .app-icon{transform:scale(.9)}
 .app-icon svg{width:29px;height:29px}
 .app span{font-size:12px;font-weight:800;text-shadow:0 2px 5px #0008}
@@ -81,7 +54,6 @@ input,textarea,select{color:white}
 .messages{background:linear-gradient(145deg,#43c98c,#16885c)}
 .phone{background:linear-gradient(145deg,#46bd82,#16834c)}
 .notes{background:linear-gradient(145deg,#e5ae48,#a66a16)}
-.files{background:linear-gradient(145deg,#4b91d9,#22538d)}
 .translate{background:linear-gradient(145deg,#5b91ed,#2848a8)}
 .widget{margin-top:30px;padding:19px;border-radius:25px;background:#ffffff16;border:1px solid #ffffff20;backdrop-filter:blur(18px)}
 .widget small{color:#d1d9e7;font-weight:800}
@@ -89,55 +61,46 @@ input,textarea,select{color:white}
 .widget p{font-size:12px;color:#c6d2e3}
 .charge-widget{display:flex;align-items:center;gap:14px;margin-top:12px}
 .charge-widget svg{width:27px;height:27px;color:#6be59d}
-
-/* BOTTOM NAV */
-#navigation{position:absolute;bottom:0;left:0;width:100%;height:calc(69px + env(safe-area-inset-bottom));padding-bottom:env(safe-area-inset-bottom);display:flex;align-items:center;justify-content:space-around;background:#080d18a8;backdrop-filter:blur(25px);border-top:1px solid #ffffff12;z-index:80}
-.nav-btn{width:33.33%;height:100%;background:none;display:flex;align-items:center;justify-content:center;opacity:.95}
-.nav-btn svg{width:23px;height:23px}
-.nav-btn.back svg{width:28px;height:28px}
+#navigation{position:absolute;bottom:0;left:0;width:100%;height:calc(48px + env(safe-area-inset-bottom));padding:0 9% env(safe-area-inset-bottom);display:flex;align-items:center;justify-content:space-around;gap:18px;z-index:80}
+.nav-btn{height:38px;width:54px;border-radius:24px;background:#11182755;backdrop-filter:blur(18px);display:flex;align-items:center;justify-content:center}
+.nav-btn:active{transform:scale(.88)}
+.nav-btn svg{width:20px;height:20px;stroke-width:2.2}
 .nav-btn.menu svg{transform:rotate(90deg)}
-
-/* LOCK SCREEN */
-#lockScreen{position:absolute;inset:0;z-index:100;background:linear-gradient(160deg,#101b35,#172d50 55%,#080e1c);display:none;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top) + 35px) 22px calc(env(safe-area-inset-bottom) + 25px)}
-.lock-top{width:100%;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800}
+#lockScreen{position:absolute;inset:0;z-index:100;background:linear-gradient(160deg,#101b35,#172d50 55%,#080e1c);display:none;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top) + 35px) 22px calc(env(safe-area-inset-bottom) + 25px);touch-action:pan-y}
+.lock-top{width:100%;display:flex;justify-content:space-between;font-size:13px;font-weight:800}
 .lock-clock{margin-top:17vh;text-align:center}
 .lock-time{font-size:clamp(65px,18vw,95px);font-weight:800;letter-spacing:-5px;line-height:1}
 .lock-date{font-size:16px;margin-top:10px;color:#dce8fa}
-.lock-battery{margin-top:23px;display:flex;align-items:center;gap:8px;font-size:13px;color:#e3edf9}
+.lock-battery{margin-top:23px;display:flex;align-items:center;gap:8px;font-size:13px}
 .lock-notification{margin-top:auto;width:100%;padding:17px;border-radius:22px;background:#ffffff20;border:1px solid #ffffff20;backdrop-filter:blur(20px)}
-.lock-notification strong{font-size:14px}
 .lock-notification p{font-size:13px;color:#d4dfef;margin-top:5px}
 .unlock-hint{margin-top:25px;font-size:12px;color:#d5e1f1;animation:pulse 2s infinite}
 @keyframes pulse{50%{opacity:.45}}
-#lockScreen.unlocking{animation:unlock .4s forwards}
+#lockScreen.unlocking{animation:unlock .35s forwards}
 @keyframes unlock{to{opacity:0;transform:translateY(-20px)}}
-
-/* CHARGING SCREEN */
-#chargingScreen{position:absolute;inset:0;z-index:150;background:linear-gradient(160deg,#071526,#102a3d 55%,#08131f);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px}
-.charge-ring{width:150px;height:150px;border:5px solid #ffffff25;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;margin-bottom:27px}
-.charge-ring:before{content:"";position:absolute;inset:-6px;border:5px solid #68e59c;border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;animation:spin 2.5s linear infinite}
-.charge-ring svg{width:58px;height:58px;color:#6be59d;animation:chargePulse 1.5s infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes chargePulse{50%{transform:scale(1.12);opacity:.7}}
-.charge-percent{font-size:52px;font-weight:900;letter-spacing:-2px}
-.charge-label{font-size:16px;color:#b9c9d9;margin-top:7px}
-.charge-detail{font-size:13px;color:#9fb1c5;margin-top:12px}
-.charge-close{position:absolute;bottom:40px;background:#ffffff18;padding:13px 24px;border-radius:30px}
-
-/* APP WINDOW */
+#chargingScreen{position:absolute;inset:0;z-index:150;background:radial-gradient(ellipse at 50% 42%,#174b5c 0%,transparent 44%),linear-gradient(160deg,#071321,#0b1d2b 55%,#07101c);display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px}
+.battery-hero{height:190px;display:flex;flex-direction:column;align-items:center;margin-bottom:30px}
+.battery-cap{width:31px;height:9px;border-radius:7px 7px 2px 2px;background:#a5f4d4;margin-bottom:4px}
+.battery-body{width:88px;height:166px;border:4px solid #a5f4d4;border-radius:22px;position:relative;overflow:hidden;background:#ffffff0a;display:flex;align-items:center;justify-content:center}
+.battery-level{position:absolute;bottom:0;left:0;width:100%;height:50%;background:linear-gradient(180deg,#4ce5a8,#159b79);transition:height .6s}
+.battery-inside{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:5px;text-shadow:0 2px 8px #0018}
+.battery-inside strong{font-size:22px;font-weight:900}
+.battery-inside svg{width:28px;height:28px}
+.charge-label{font-size:20px;font-weight:800;margin-bottom:7px}
+.charge-detail{font-size:13px;color:#a8bdc9}
+.charge-close{position:absolute;bottom:calc(30px + env(safe-area-inset-bottom));background:#ffffff16;border:1px solid #ffffff18;border-radius:24px;padding:13px 35px}
 #appScreen{position:absolute;inset:0;z-index:50;background:#0b1020;display:none;flex-direction:column}
-.app-header{height:78px;padding:env(safe-area-inset-top) 20px 10px;display:flex;align-items:center;gap:15px;background:#111a2b;flex-shrink:0}
-.app-header button{background:none;display:flex;align-items:center;justify-content:center;width:38px;height:38px}
-.app-header h2{font-size:22px;font-weight:900}
-.app-content{flex:1;overflow:auto;padding:19px 18px 100px}
-.panel{background:#ffffff0e;border:1px solid #ffffff12;border-radius:22px;padding:17px;margin-bottom:14px}
+.app-header{height:72px;padding:env(safe-area-inset-top) 22px 8px;display:flex;align-items:center;background:linear-gradient(180deg,#18243a,#111a2b);border-bottom:1px solid #ffffff0c;flex-shrink:0}
+.app-header h2{font-size:23px;font-weight:900}
+.app-content{flex:1;overflow:auto;padding:20px 17px calc(76px + env(safe-area-inset-bottom))}
+.panel{background:linear-gradient(145deg,#1b263a,#121b2b);border:1px solid #ffffff0d;border-radius:24px;padding:19px;margin-bottom:14px;box-shadow:0 10px 30px #0002}
 .panel h3{font-size:16px;margin-bottom:10px}
 .muted{color:var(--muted);font-size:13px}
-.action{background:#258cff;padding:12px 18px;border-radius:14px;font-weight:800;margin:5px 4px 5px 0}
+.action{background:#258cff;padding:12px 18px;border-radius:16px;font-weight:800;margin:5px 4px 5px 0}
 .action.secondary{background:#ffffff18}
-.field{width:100%;background:#ffffff12;border:1px solid #ffffff20;color:#fff;border-radius:14px;padding:13px;margin:7px 0;outline:none}
-.field option{background:#101827;color:#fff}
-.setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #ffffff12}
+.field{width:100%;background:#0b1423;border:1px solid #ffffff15;border-radius:16px;padding:13px;margin:7px 0;outline:none;color:white;user-select:text}
+.field option{background:#101827}
+.setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid #ffffff12}
 .setting-row:last-child{border:0}
 .setting-row strong{font-size:14px}
 .setting-row small{display:block;color:#aebbd0;font-size:12px;margin-top:3px}
@@ -145,32 +108,21 @@ input,textarea,select{color:white}
 .switch:after{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;border-radius:50%;background:white;transition:.2s}
 .switch.on{background:#258cff}
 .switch.on:after{left:23px}
-
-/* CALCULATOR */
-#calcDisplay{width:100%;background:#ffffff0c;border:0;border-radius:20px;padding:20px;color:white;text-align:right;font-size:35px;margin-bottom:15px}
-.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-.calc-grid button{height:61px;border-radius:18px;background:#ffffff16;font-size:20px;font-weight:800}
-.calc-grid button.op{background:#246fc4}
-.calc-grid button.equal{background:#258cff}
-.calc-grid button:active{transform:scale(.95)}
-
-/* CLOCK */
-.clock-big{text-align:center;font-size:53px;font-weight:900;padding:22px 0}
+#calcDisplay{width:100%;background:#121d30;border:1px solid #ffffff0c;border-radius:20px;padding:25px 18px;color:white;text-align:right;font-size:42px;margin-bottom:15px}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.calc-grid button{height:64px;border-radius:21px;background:#1b2940;font-size:20px;font-weight:800}
+.calc-grid button.op{background:#214e85}
+.calc-grid button.equal{background:linear-gradient(135deg,#3996ff,#2169d8)}
+.clock-big{text-align:center;font-size:59px;font-weight:900;padding:22px 0}
 .clock-buttons{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-
-/* MESSAGES / NOTES */
 .message{padding:12px 15px;border-radius:18px;background:#ffffff16;margin:9px 0;max-width:85%;font-size:14px;overflow-wrap:anywhere}
 .message.mine{margin-left:auto;background:#176fc9}
 .message small{display:block;color:#c3d2e6;font-size:10px;margin-bottom:4px}
 .note-item{padding:15px;border-radius:17px;background:#ffffff12;margin:9px 0;overflow-wrap:anywhere}
 .note-item strong{display:block;margin-bottom:5px}
-
-/* PHONE */
 .dial-display{font-size:30px;text-align:center;min-height:55px;padding:10px}
 .dial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:320px;margin:10px auto}
-.dial-grid button{height:62px;border-radius:50%;background:#ffffff15;font-size:23px;font-weight:800}
-
-/* QUICK SETTINGS / RECENTS */
+.dial-grid button{height:62px;border-radius:50%;background:#1a2639;font-size:23px;font-weight:800}
 #shade,#recents{position:absolute;inset:0;z-index:200;background:#080d18f5;backdrop-filter:blur(25px);padding:calc(env(safe-area-inset-top) + 20px) 19px 100px;display:none;overflow:auto}
 .shade-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
 .shade-head h2{font-size:27px}
@@ -178,35 +130,45 @@ input,textarea,select{color:white}
 .quick{padding:16px;border-radius:18px;background:#ffffff15;text-align:left;display:flex;align-items:center;gap:12px}
 .quick.active{background:#176fc9}
 .quick svg{width:22px;height:22px}
-.shade-title{margin:25px 0 12px}
-.notice{padding:16px;border-radius:18px;background:#ffffff13;margin-bottom:10px}
-.notice strong{font-size:14px}
-.notice p{font-size:12px;color:#bdc9da;margin-top:4px}
 .slider-label{display:flex;justify-content:space-between;font-size:13px;margin:20px 0 8px}
 input[type=range]{width:100%;accent-color:#258cff}
 .power-button{background:#a72f42;border-radius:50%;width:48px;height:48px;display:flex;align-items:center;justify-content:center}
-.recent-card{padding:18px;border-radius:20px;background:#ffffff12;margin:12px 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.recent-card button{background:#ffffff18;padding:9px 12px;border-radius:12px}
-
-/* DIALOG / TOAST */
-#dialog{position:absolute;inset:0;z-index:400;background:#0009;display:none;align-items:center;justify-content:center;padding:25px}
-.dialog-box{width:100%;max-width:350px;background:#182338;border-radius:25px;padding:23px;box-shadow:0 20px 70px #0008}
-.dialog-box h3{font-size:20px;margin-bottom:9px}
-.dialog-box p{font-size:14px;color:#c4cede;margin-bottom:20px}
-.dialog-actions{display:flex;justify-content:flex-end;gap:9px}
+#recents{padding:calc(env(safe-area-inset-top) + 18px) 16px calc(95px + env(safe-area-inset-bottom));background:linear-gradient(160deg,#0b1424f7,#111629f8)}
+#recentList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 11px;padding-bottom:25px}
+.recent-card{display:flex;flex-direction:column;gap:9px;min-width:0;touch-action:pan-y;animation:recentIn .28s ease both}
+@keyframes recentIn{from{opacity:0;transform:translateY(15px) scale(.97)}to{opacity:1;transform:none}}
+.recent-preview{height:190px;border-radius:22px;padding:12px;background:linear-gradient(145deg,#263d60,#111b30);border:1px solid #ffffff1b;box-shadow:0 12px 26px #0005;overflow:hidden;display:flex;flex-direction:column;gap:15px}
+.preview-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800}
+.preview-content{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;text-align:center;font-size:11px;color:#eaf1ff}
+.recent-calc{background:linear-gradient(145deg,#1b4c8b,#101a31)}
+.recent-settings{background:linear-gradient(145deg,#46556b,#172337)}
+.recent-clock{background:linear-gradient(145deg,#126ba5,#15274a)}
+.recent-messages{background:linear-gradient(145deg,#126e59,#102a2a)}
+.recent-phone{background:linear-gradient(145deg,#176c49,#112c25)}
+.recent-notes{background:linear-gradient(145deg,#88612a,#33271a)}
+.recent-translate{background:linear-gradient(145deg,#354d9c,#172044)}
+.recent-meta{height:34px;display:flex;align-items:center;gap:7px;padding:0 2px}
+.recent-meta strong{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.recent-app-icon{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:#ffffff1c}
+.recent-app-icon svg{width:15px;height:15px}
+.recent-close{width:29px;height:29px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#ffffff18}
+.recent-empty{grid-column:1/-1;min-height:48vh;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:#aab8ce;text-align:center}
+.close-all-bottom{position:fixed;z-index:3;bottom:calc(14px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(230px,70%);height:48px;border-radius:25px;background:#e7edf9;color:#172033;font-weight:800;display:flex;align-items:center;justify-content:center;gap:9px}
+#dialog{position:absolute;inset:0;z-index:400;background:#0009;display:none;align-items:flex-end;backdrop-filter:blur(8px)}
+.power-sheet{width:100%;padding:13px 22px calc(22px + env(safe-area-inset-bottom));background:linear-gradient(160deg,#1b2940,#101827);border-radius:30px 30px 0 0;border:1px solid #ffffff15;animation:sheetUp .28s ease}
+@keyframes sheetUp{from{transform:translateY(80px);opacity:.5}to{transform:none;opacity:1}}
+.power-handle{width:38px;height:4px;background:#ffffff48;border-radius:5px;margin:0 auto 22px}
+.power-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.power-options button{display:flex;flex-direction:column;align-items:center;gap:10px;background:transparent;font-size:12px}
+.power-option-icon{width:62px;height:62px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:#ffffff13}
+.power-cancel{width:100%;height:48px;margin-top:23px;border-radius:17px;background:#ffffff12}
 #toast{position:absolute;bottom:95px;left:50%;transform:translateX(-50%);background:#202c40;padding:11px 18px;border-radius:30px;font-size:12px;z-index:500;opacity:0;pointer-events:none;transition:.25s;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
 #toast.show{opacity:1}
-#sleepOverlay{position:absolute;inset:0;background:#000;z-index:800;display:none}
-
-@media(max-width:500px){
- .app-icon{width:61px;height:61px}
- .home-heading{margin-top:25px}
- .boot-logo{font-size:clamp(36px,10vw,55px)}
- .loading-track{width:90%}
-}
+#sleepOverlay{position:absolute;inset:0;background:#000;z-index:900;display:none;opacity:0;transition:opacity .4s}
+#sleepOverlay.sleep-on{opacity:1}
+@media(max-width:390px){.app-icon{width:61px;height:61px}.recent-preview{height:165px}}
 </style>
 </head>
-
 <body>
 
 <div id="startScreen">
@@ -215,119 +177,68 @@ input[type=range]{width:100%;accent-color:#258cff}
   <button class="start-button" id="startButton">START</button>
  </div>
 </div>
-
 <div id="blackScreen"></div>
-
 <div id="bootScreen">
  <div class="center-content">
-  <div class="boot-logo">
-   <span class="blue">S</span><span>i</span><span>r</span><span class="blue">T</span><span>r</span><span>o</span><span>s</span><span class="blue">O</span><span class="blue">S</span>
-  </div>
+  <div class="boot-logo"><span>S</span><span>i</span><span>r</span><span>T</span><span>r</span><span>o</span><span>s</span><span>O</span><span>S</span></div>
   <div class="loading-track"><div class="loading-bar" id="loadingBar"></div></div>
  </div>
- <div class="bottom-powered">
-  <span class="powered-text">POWERED BY</span>
-  <img class="html-logo" src="assets/html.png" alt="HTML">
- </div>
+ <div class="powered">POWERED BY SIRTROS</div>
 </div>
 
 <div id="os">
-
  <div id="home">
   <div id="status">
-   <div class="status-left">
-    <span id="statusTime">12:00</span>
-    <div class="status-icons" id="statusIcons">
-     <i data-lucide="message-circle"></i>
-     <i data-lucide="bell"></i>
-    </div>
-   </div>
-   <div class="status-right">
-    <i data-lucide="wifi" id="wifiStatusIcon"></i>
-    <i data-lucide="bluetooth" id="bluetoothStatusIcon"></i>
-    <div class="battery-status">
-     <span id="batteryPercent">--%</span>
-     <div class="battery-shape"><div class="battery-fill" id="batteryFill"></div></div>
-     <span class="charging-bolt hidden" id="chargingBolt">ϟ</span>
-    </div>
-   </div>
+   <div id="statusTime">12:00</div>
+   <div class="status-right"><i data-lucide="wifi"></i><i data-lucide="signal"></i><span id="batteryPercent">--%</span><div class="battery-shape"><div class="battery-fill" id="batteryFill"></div></div><span id="chargingBolt" class="hidden">⚡</span></div>
   </div>
-
-  <div class="home-heading">
-   <h1>SirTrosOS</h1>
-   <p id="homeDate">Vítej zpět</p>
-  </div>
-
+  <div class="home-heading"><h1>SirTrosOS</h1><p id="homeDate">Vítej zpět</p></div>
   <div class="app-grid">
-   <button class="app" onclick="openApp('calc')"><div class="app-icon calc"><i data-lucide="calculator"></i></div><span data-i18n="calculator">Kalkulačka</span></button>
-   <button class="app" onclick="openApp('settings')"><div class="app-icon settings"><i data-lucide="settings"></i></div><span data-i18n="settings">Nastavení</span></button>
-   <button class="app" onclick="openApp('clock')"><div class="app-icon clock"><i data-lucide="clock"></i></div><span data-i18n="clock">Hodiny</span></button>
-   <button class="app" onclick="openApp('messages')"><div class="app-icon messages"><i data-lucide="message-circle"></i></div><span data-i18n="messages">Zprávy</span></button>
-   <button class="app" onclick="openApp('phone')"><div class="app-icon phone"><i data-lucide="phone"></i></div><span data-i18n="phone">Telefon</span></button>
-   <button class="app" onclick="openApp('notes')"><div class="app-icon notes"><i data-lucide="notebook-pen"></i></div><span data-i18n="notes">Poznámky</span></button>
-   <button class="app" onclick="openApp('files')"><div class="app-icon files"><i data-lucide="folder"></i></div><span data-i18n="files">Soubory</span></button>
-   <button class="app" onclick="openApp('translate')"><div class="app-icon translate"><i data-lucide="languages"></i></div><span data-i18n="translate">Překladač</span></button>
+   <button class="app" onclick="openApp('calc')"><div class="app-icon calc"><i data-lucide="calculator"></i></div><span>Kalkulačka</span></button>
+   <button class="app" onclick="openApp('settings')"><div class="app-icon settings"><i data-lucide="settings"></i></div><span>Nastavení</span></button>
+   <button class="app" onclick="openApp('clock')"><div class="app-icon clock"><i data-lucide="clock"></i></div><span>Hodiny</span></button>
+   <button class="app" onclick="openApp('messages')"><div class="app-icon messages"><i data-lucide="message-circle"></i></div><span>Zprávy</span></button>
+   <button class="app" onclick="openApp('phone')"><div class="app-icon phone"><i data-lucide="phone"></i></div><span>Telefon</span></button>
+   <button class="app" onclick="openApp('notes')"><div class="app-icon notes"><i data-lucide="notebook-pen"></i></div><span>Poznámky</span></button>
+   <button class="app" onclick="openApp('translate')"><div class="app-icon translate"><i data-lucide="languages"></i></div><span>Překladač</span></button>
   </div>
-
   <div class="widget">
    <small>SirTrosOS • Systém</small>
    <strong id="widgetTime">12:00</strong>
    <p id="widgetDate">Připraveno k použití</p>
-   <div class="charge-widget">
-    <i data-lucide="battery-charging"></i>
-    <div><strong id="widgetBattery" style="font-size:17px">Baterie</strong><p id="widgetCharge">Zjišťuji stav baterie…</p></div>
-   </div>
+   <div class="charge-widget"><i data-lucide="battery-charging"></i><div><strong id="widgetBattery" style="font-size:17px">Baterie</strong><p id="widgetCharge">Zjišťuji stav baterie…</p></div></div>
   </div>
  </div>
 
  <div id="navigation">
   <button class="nav-btn menu" onclick="openRecents()" aria-label="Nedávné aplikace"><i data-lucide="menu"></i></button>
   <button class="nav-btn" onclick="goHome()" aria-label="Domů"><i data-lucide="circle"></i></button>
-  <button class="nav-btn back" onclick="goBack()" aria-label="Zpět"><i data-lucide="arrow-left"></i></button>
+  <button class="nav-btn" onclick="goBack()" aria-label="Zpět"><i data-lucide="arrow-left"></i></button>
  </div>
 
  <div id="lockScreen">
-  <div class="lock-top">
-   <span id="lockDateSmall">SirTrosOS</span>
-   <span><i data-lucide="wifi"></i>　<i data-lucide="battery-full"></i></span>
-  </div>
-  <div class="lock-clock">
-   <div class="lock-time" id="lockTime">12:00</div>
-   <div class="lock-date" id="lockDate">Pondělí, 1. ledna</div>
-  </div>
-  <div class="lock-battery">
-   <i data-lucide="battery-charging"></i>
-   <span id="lockBatteryText">Stav baterie se zjišťuje…</span>
-  </div>
-  <div class="lock-notification">
-   <strong><i data-lucide="bell" style="width:15px;vertical-align:middle"></i>　<span data-i18n="notification">Oznámení</span></strong>
-   <p>Vítej v SirTrosOS. Systém je připraven.</p>
-  </div>
-  <div class="unlock-hint" data-i18n="unlock">Přejeď nahoru pro odemknutí</div>
-  <i style="margin-top:8px" data-lucide="chevron-up"></i>
+  <div class="lock-top"><span id="lockDateSmall">SirTrosOS</span><span><i data-lucide="wifi"></i>　<i data-lucide="battery-full"></i></span></div>
+  <div class="lock-clock"><div class="lock-time" id="lockTime">12:00</div><div class="lock-date" id="lockDate">Pondělí, 1. ledna</div></div>
+  <div class="lock-battery"><i data-lucide="battery-charging"></i><span id="lockBatteryText">Stav baterie se zjišťuje…</span></div>
+  <div class="lock-notification"><strong><i data-lucide="bell"></i> Oznámení</strong><p>Vítej v SirTrosOS. Systém je připraven.</p></div>
+  <div class="unlock-hint">Přejeď nahoru nebo klikni pro odemknutí</div>
+  <i data-lucide="fingerprint"></i>
  </div>
 
  <div id="chargingScreen">
-  <div class="charge-ring"><i data-lucide="zap"></i></div>
-  <div class="charge-percent" id="chargePercent">--%</div>
+  <div class="battery-hero"><div class="battery-cap"></div><div class="battery-body"><div class="battery-level" id="heroBatteryLevel"></div><div class="battery-inside"><strong id="chargePercent">--%</strong><i data-lucide="zap"></i></div></div></div>
   <div class="charge-label" id="chargeLabel">Nabíjí se</div>
   <div class="charge-detail" id="chargeDetail">SirTrosOS • Napájení</div>
-  <button class="charge-close" onclick="hideChargingScreen()">Zavřít</button>
+  <button class="charge-close" onclick="hideChargingScreen()">Hotovo</button>
  </div>
 
  <div id="appScreen">
-  <div class="app-header">
-   <button onclick="closeApp()"><i data-lucide="arrow-left"></i></button>
-   <h2 id="appTitle">Aplikace</h2>
-  </div>
+  <div class="app-header"><h2 id="appTitle">Aplikace</h2></div>
   <div class="app-content" id="appContent"></div>
  </div>
 
  <div id="shade">
-  <div class="shade-head">
-   <div><h2 data-i18n="quickPanel">Rychlý panel</h2><p class="muted" id="shadeDate"></p></div>
-   <button class="power-button" onclick="showRestart()"><i data-lucide="power"></i></button>
-  </div>
+  <div class="shade-head"><div><h2>Rychlý panel</h2><p class="muted" id="shadeDate"></p></div><button class="power-button" onclick="showPowerMenu()"><i data-lucide="power"></i></button></div>
   <div class="quick-grid">
    <button class="quick active" data-feature="wifi" onclick="toggleQuick(this)"><i data-lucide="wifi"></i> Wi-Fi</button>
    <button class="quick active" data-feature="bluetooth" onclick="toggleQuick(this)"><i data-lucide="bluetooth"></i> Bluetooth</button>
@@ -340,120 +251,77 @@ input[type=range]{width:100%;accent-color:#258cff}
   <input id="brightnessSlider" type="range" min="25" max="100" value="100" oninput="setBrightness(this.value)">
   <div class="slider-label"><span>Hlasitost systému</span><span id="volumeValue">70 %</span></div>
   <input id="volumeSlider" type="range" min="0" max="100" value="70" oninput="setVolume(this.value)">
-  <h3 class="shade-title" data-i18n="notification">Oznámení</h3>
-  <div id="notificationList">
-   <div class="notice"><strong>SirTrosOS</strong><p>Systém byl úspěšně spuštěn.</p></div>
-   <div class="notice"><strong>Vítej!</strong><p>Užij si používání SirTrosOS.</p></div>
-  </div>
+  <h3 class="shade-title">Oznámení</h3>
+  <div id="notificationList"><div class="panel"><strong>SirTrosOS</strong><p class="muted">Systém byl úspěšně spuštěn.</p></div></div>
   <button class="action secondary" onclick="clearNotifications()">Vymazat oznámení</button>
  </div>
 
  <div id="recents">
-  <div class="shade-head"><div><h2>Nedávné aplikace</h2><p class="muted">Spuštěné aplikace</p></div><button class="action secondary" onclick="closeAllApps()">Zavřít vše</button></div>
+  <div class="shade-head"><div><h2>Nedávné aplikace</h2><p class="muted">Spuštěné aplikace</p></div></div>
   <div id="recentList"></div>
+  <button class="close-all-bottom" onclick="closeAllApps()"><i data-lucide="x-circle"></i> Zavřít vše</button>
  </div>
 
- <div id="dialog">
-  <div class="dialog-box">
-   <h3 id="dialogTitle">Restartovat zařízení?</h3>
-   <p id="dialogText">Opravdu chcete restartovat zařízení?</p>
-   <div class="dialog-actions">
-    <button class="action secondary" onclick="hideDialog()">Zrušit</button>
-    <button class="action" onclick="confirmRestart()">Ano</button>
+ <div id="dialog" onclick="if(event.target===this)hideDialog()">
+  <div class="power-sheet">
+   <div class="power-handle"></div><h3>Napájení</h3><p class="muted">Co chceš se zařízením udělat?</p>
+   <div class="power-options">
+    <button onclick="hideDialog();lockDevice()"><span class="power-option-icon"> <i data-lucide="lock"></i></span><b>Zamknout</b></button>
+    <button onclick="hideDialog();confirmRestart()"><span class="power-option-icon"><i data-lucide="refresh-cw"></i></span><b>Restartovat</b></button>
+    <button onclick="hideDialog();shutdownDevice()"><span class="power-option-icon"><i data-lucide="power"></i></span><b>Vypnout</b></button>
    </div>
+   <button class="power-cancel" onclick="hideDialog()">Zrušit</button>
   </div>
  </div>
-
  <div id="toast"></div>
- <div id="sleepOverlay"></div>
+ <div id="sleepOverlay" onclick="wakeFromSleep()"></div>
 </div>
 
 <script>
 "use strict";
 const $=id=>document.getElementById(id);
-
 let stage=0,holding=false,completed=false,holdTimer=null;
-let currentApp=null,apps=[],wakeLock=null,batteryManager=null,batteryLevel=null,isCharging=false;
+let currentApp=null,apps=[],batteryManager=null,batteryLevel=null,isCharging=false;
 let stopwatchStart=null,stopwatchElapsed=0,stopwatchInterval=null,dialNumber="";
 let idleTimer=null,dimTimer=null,sleeping=false,toastTimer=null;
-let brightness=100,volume=70;
-let audioContext=null;
-let settings={sound:true,touch:true,notifications:true,volume:70,theme:"oneui"};
+let brightness=100,volume=70,audioContext=null;
+let settings={sound:true,touch:true,notifications:true,volume:70};
 let quickState={wifi:true,bluetooth:true,dnd:false,flash:false,airplane:false,batterySaver:false};
-let notes=JSON.parse(localStorage.getItem("sirtros_notes")||"[]");
-
-const translations={
- cs:{calculator:"Kalkulačka",settings:"Nastavení",clock:"Hodiny",messages:"Zprávy",phone:"Telefon",notes:"Poznámky",files:"Soubory",translate:"Překladač",notification:"Oznámení",unlock:"Přejeď nahoru pro odemknutí",quickPanel:"Rychlý panel",language:"Jazyk",battery:"Baterie",sound:"Zvuk",display:"Displej",about:"O zařízení"},
- en:{calculator:"Calculator",settings:"Settings",clock:"Clock",messages:"Messages",phone:"Phone",notes:"Notes",files:"Files",translate:"Translate",notification:"Notifications",unlock:"Swipe up to unlock",quickPanel:"Quick panel",language:"Language",battery:"Battery",sound:"Sound",display:"Display",about:"About device"},
- sk:{calculator:"Kalkulačka",settings:"Nastavenia",clock:"Hodiny",messages:"Správy",phone:"Telefón",notes:"Poznámky",files:"Súbory",translate:"Prekladač",notification:"Oznámenia",unlock:"Potiahni nahor na odomknutie",quickPanel:"Rýchly panel",language:"Jazyk",battery:"Batéria",sound:"Zvuk",display:"Displej",about:"O zariadení"},
- de:{calculator:"Rechner",settings:"Einstellungen",clock:"Uhr",messages:"Nachrichten",phone:"Telefon",notes:"Notizen",files:"Dateien",translate:"Übersetzer",notification:"Mitteilungen",unlock:"Zum Entsperren nach oben wischen",quickPanel:"Schnelleinstellungen",language:"Sprache",battery:"Akku",sound:"Ton",display:"Anzeige",about:"Über das Gerät"}
-};
-let language=localStorage.getItem("sirtros_language")||"cs";
-
+let notes=[];
+try{notes=JSON.parse(localStorage.getItem("sirtros_notes")||"[]");if(!Array.isArray(notes))notes=[]}catch(e){notes=[]}
+try{const b=Number(localStorage.getItem("sirtros_brightness"));if(b>=25&&b<=100)brightness=b}catch(e){}
+const appTitles={calc:"Kalkulačka",settings:"Nastavení",clock:"Hodiny",messages:"Zprávy",phone:"Telefon",notes:"Poznámky",translate:"Překladač"};
+const appIcons={calc:"calculator",settings:"settings",clock:"clock",messages:"message-circle",phone:"phone",notes:"notebook-pen",translate:"languages"};
 function icons(){if(window.lucide)lucide.createIcons()}
 icons();
 
-/* AUDIO ENGINE */
 function initAudio(){
- try{
-  const AC=window.AudioContext||window.webkitAudioContext;
-  if(!AC)return;
-  if(!audioContext)audioContext=new AC();
-  if(audioContext.state==="suspended")audioContext.resume();
- }catch(e){}
+ try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;if(!audioContext)audioContext=new AC();if(audioContext.state==="suspended")audioContext.resume()}catch(e){}
 }
-function tone(freq,duration,delay=0,type="sine",gain=.12){
+function tone(freq,duration,delay=0,type="sine",gain=.08){
  if(!settings.sound||!audioContext||volume<=0)return;
- try{
-  const osc=audioContext.createOscillator(),amp=audioContext.createGain();
-  const start=audioContext.currentTime+delay;
-  osc.type=type;osc.frequency.setValueAtTime(freq,start);
-  amp.gain.setValueAtTime(0,start);
-  amp.gain.linearRampToValueAtTime(gain*(volume/100),start+.025);
-  amp.gain.exponentialRampToValueAtTime(.001,start+duration);
-  osc.connect(amp);amp.connect(audioContext.destination);
-  osc.start(start);osc.stop(start+duration+.03);
- }catch(e){}
+ try{const o=audioContext.createOscillator(),g=audioContext.createGain(),t=audioContext.currentTime+delay;o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain*volume/100,t+.025);g.gain.exponentialRampToValueAtTime(.001,t+duration);o.connect(g);g.connect(audioContext.destination);o.start(t);o.stop(t+duration+.03)}catch(e){}
 }
 function playSound(kind){
  if(!settings.sound)return;
  if(kind==="click"&&!settings.touch)return;
- if(kind==="notification"&&!settings.notifications)return;
- if(kind==="startup"){tone(440,.22,0);tone(554,.25,.18);tone(659,.35,.38);tone(880,.5,.62)}
+ if(kind==="startup"){tone(440,.22);tone(554,.25,.18);tone(659,.35,.38);tone(880,.5,.62)}
  if(kind==="unlock"){tone(523,.12);tone(659,.18,.11)}
  if(kind==="click")tone(650,.045,0,"sine",.035);
- if(kind==="notification"){tone(660,.13);tone(880,.22,.14)}
- if(kind==="error"){tone(180,.2,0,"square",.07);tone(130,.25,.16,"square",.06)}
  if(kind==="charging"){tone(523,.13);tone(784,.25,.14)}
  if(kind==="shutdown"){tone(440,.16);tone(330,.22,.17)}
 }
-document.addEventListener("click",e=>{
- if(e.target.closest("button"))playSound("click");
-});
+document.addEventListener("click",e=>{if(e.target.closest("button"))playSound("click")});
 
-/* ORIENTATION + WAKE LOCK */
-async function lockPortrait(){
- try{if(screen.orientation?.lock)await screen.orientation.lock("portrait")}catch(e){}
-}
-async function keepAwake(){
- try{
-  if("wakeLock" in navigator){
-   if(!wakeLock||wakeLock.released)wakeLock=await navigator.wakeLock.request("screen");
-  }
- }catch(e){}
-}
+async function keepAwake(){try{if("wakeLock"in navigator)await navigator.wakeLock.request("screen")}catch(e){}}
+async function lockPortrait(){try{if(screen.orientation?.lock)await screen.orientation.lock("portrait")}catch(e){}}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&stage>=1)keepAwake()});
 
-/* START */
 $("startButton").addEventListener("click",async()=>{
  if(stage!==0)return;
- initAudio();stage=1;
- await lockPortrait();keepAwake();
- if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
-  try{await document.documentElement.requestFullscreen()}catch(e){}
- }
- $("startScreen").style.display="none";
- $("blackScreen").style.display="block";
+ initAudio();stage=1;await lockPortrait();keepAwake();
+ try{if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen()}catch(e){}
+ $("startScreen").style.display="none";$("blackScreen").style.display="block";
 });
 function beginHold(e){
  if(stage!==1||holding||completed)return;
@@ -465,123 +333,73 @@ function beginHold(e){
   $("blackScreen").style.display="none";beginBoot();
  },3000);
 }
-function endHold(){
- if(!holding||completed)return;
- holding=false;clearTimeout(holdTimer);
-}
+function endHold(){if(!holding||completed)return;holding=false;clearTimeout(holdTimer)}
 $("blackScreen").addEventListener("pointerdown",beginHold);
 document.addEventListener("pointerup",endHold);
 document.addEventListener("pointercancel",endHold);
 
-/* BOOT */
 function beginBoot(){
- $("blackScreen").style.display="none";
- $("bootScreen").style.display="block";
- $("loadingBar").style.width="0%";
+ $("blackScreen").style.display="none";$("bootScreen").style.display="block";$("loadingBar").style.width="0%";
  requestAnimationFrame(()=>{$("bootScreen").style.opacity="1";playSound("startup")});
- startLoading();
-}
-function startLoading(){
- const start=performance.now(),duration=8000;
- function update(now){
-  const p=Math.min((now-start)/duration,1);
-  const eased=1-Math.pow(1-p,3);
-  $("loadingBar").style.width=(eased*100)+"%";
-  if(p<1)requestAnimationFrame(update);else setTimeout(finishBoot,400);
- }
+ const start=performance.now(),duration=6500;
+ function update(now){const p=Math.min((now-start)/duration,1);$("loadingBar").style.width=((1-Math.pow(1-p,3))*100)+"%";if(p<1)requestAnimationFrame(update);else setTimeout(finishBoot,350)}
  requestAnimationFrame(update);
 }
 function finishBoot(){
  $("bootScreen").style.opacity="0";
  setTimeout(()=>{
-  $("bootScreen").style.display="none";
-  $("os").style.display="block";
-  $("lockScreen").style.display="flex";
-  $("appScreen").style.display="none";
-  $("home").style.display="block";
-  $("shade").style.display="none";
-  $("chargingScreen").style.display="none";
+  $("bootScreen").style.display="none";$("os").style.display="block";$("lockScreen").style.display="flex";$("home").style.display="block";
   stage=2;currentApp=null;updateTime();icons();resetIdle();keepAwake();
- },800);
+ },700);
 }
 
-/* TIME */
 function updateTime(){
- const now=new Date();
- const time=now.toLocaleTimeString(language==="en"?"en-GB":language+"-CZ",{hour:"2-digit",minute:"2-digit"});
- const date=now.toLocaleDateString(language==="en"?"en-GB":language+"-CZ",{weekday:"long",day:"numeric",month:"long"});
- $("statusTime").textContent=time;
- $("widgetTime").textContent=time;
- $("lockTime").textContent=time;
- $("lockDate").textContent=date;
- $("homeDate").textContent=date.charAt(0).toUpperCase()+date.slice(1);
- $("lockDateSmall").textContent=now.toLocaleDateString("cs-CZ",{day:"numeric",month:"long"});
- $("widgetDate").textContent=date;
- $("shadeDate").textContent=date;
+ const n=new Date(),time=n.toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"}),date=n.toLocaleDateString("cs-CZ",{weekday:"long",day:"numeric",month:"long"});
+ $("statusTime").textContent=time;$("widgetTime").textContent=time;$("lockTime").textContent=time;
+ $("lockDate").textContent=date;$("homeDate").textContent=date.charAt(0).toUpperCase()+date.slice(1);
+ $("lockDateSmall").textContent=n.toLocaleDateString("cs-CZ",{day:"numeric",month:"long"});$("widgetDate").textContent=date;$("shadeDate").textContent=date;
 }
 setInterval(updateTime,1000);updateTime();
 
-/* BATTERY */
 function renderBattery(){
- const pct=batteryLevel===null?null:batteryLevel;
- $("batteryPercent").textContent=pct===null?"--%":pct+"%";
- $("batteryFill").style.width=pct===null?"0%":pct+"%";
+ const p=batteryLevel;
+ $("batteryPercent").textContent=p===null?"--%":p+"%";
+ $("batteryFill").style.width=p===null?"0%":p+"%";
  $("chargingBolt").classList.toggle("hidden",!isCharging);
- $("widgetBattery").textContent=pct===null?"Baterie nedostupná":pct+" %";
- $("widgetCharge").textContent=pct===null?"Prohlížeč neposkytuje informace o baterii":isCharging?"Nabíjí se":"Nenabíjí se";
- $("lockBatteryText").textContent=pct===null?"Stav baterie není dostupný":(isCharging?"Nabíjí se • ":"Baterie • ")+pct+" %";
- $("chargePercent").textContent=pct===null?"--%":pct+"%";
+ $("widgetBattery").textContent=p===null?"Baterie nedostupná":p+" %";
+ $("widgetCharge").textContent=p===null?"Prohlížeč neposkytuje informace o baterii":isCharging?"Nabíjí se":"Nenabíjí se";
+ $("lockBatteryText").textContent=p===null?"Stav baterie není dostupný":(isCharging?"Nabíjí se • ":"Baterie • ")+p+" %";
+ $("chargePercent").textContent=p===null?"--%":p+"%";$("heroBatteryLevel").style.height=(p||0)+"%";
  $("chargeLabel").textContent=isCharging?"Nabíjí se":"Napájení odpojeno";
- $("chargeDetail").textContent=pct===null?"Stav baterie není dostupný":(isCharging?"Baterie se právě nabíjí":"Zařízení není připojeno k nabíječce");
+ $("chargeDetail").textContent=p===null?"Stav baterie není dostupný":isCharging?"Baterie se právě nabíjí":"Zařízení není připojeno k nabíječce";
 }
 async function initBattery(){
  if(!navigator.getBattery){renderBattery();return}
- try{
-  batteryManager=await navigator.getBattery();
-  function update(){
-   const old=isCharging;
-   batteryLevel=Math.round(batteryManager.level*100);
-   isCharging=batteryManager.charging;
-   renderBattery();
-   if(isCharging&&!old){playSound("charging");addNotification("Nabíjení","Zařízení se začalo nabíjet.")}
-   if(!isCharging&&old)addNotification("Nabíjení","Nabíječka byla odpojena.");
-  }
-  update();
-  batteryManager.addEventListener("levelchange",update);
-  batteryManager.addEventListener("chargingchange",update);
- }catch(e){renderBattery()}
+ try{batteryManager=await navigator.getBattery();function update(){const old=isCharging;batteryLevel=Math.round(batteryManager.level*100);isCharging=batteryManager.charging;renderBattery();if(isCharging&&!old)addNotification("Nabíjení","Zařízení se začalo nabíjet.");if(!isCharging&&old)addNotification("Nabíjení","Nabíječka byla odpojena.")}update();batteryManager.addEventListener("levelchange",update);batteryManager.addEventListener("chargingchange",update)}catch(e){renderBattery()}
 }
 initBattery();
-function showChargingScreen(){
- $("chargingScreen").style.display="flex";
- renderBattery();icons();
-}
+function showChargingScreen(){$("chargingScreen").style.display="flex";renderBattery();icons()}
 function hideChargingScreen(){$("chargingScreen").style.display="none"}
 
-/* UNLOCK */
-let lockStartY=null;
+/* ODEMYKÁNÍ – DOTYK, MYŠ I KLIKNUTÍ */
+let lockStartY=null,lockPointerY=null;
+$("lockScreen").addEventListener("pointerdown",e=>{lockPointerY=e.clientY;try{$("lockScreen").setPointerCapture(e.pointerId)}catch(err){}});
+$("lockScreen").addEventListener("pointerup",e=>{if(lockPointerY!==null&&lockPointerY-e.clientY>45)unlock();lockPointerY=null});
+$("lockScreen").addEventListener("pointercancel",()=>lockPointerY=null);
 $("lockScreen").addEventListener("touchstart",e=>{lockStartY=e.touches[0].clientY},{passive:true});
-$("lockScreen").addEventListener("touchend",e=>{
- if(lockStartY!==null&&lockStartY-e.changedTouches[0].clientY>45)unlock();
- lockStartY=null;
-});
+$("lockScreen").addEventListener("touchend",e=>{if(lockStartY!==null&&lockStartY-e.changedTouches[0].clientY>45)unlock();lockStartY=null});
+$("lockScreen").addEventListener("click",()=>unlock());
 function unlock(){
- const lock=$("lockScreen");
- if(lock.style.display==="none")return;
+ const lock=$("lockScreen");if(lock.style.display==="none")return;
  playSound("unlock");lock.classList.add("unlocking");
  setTimeout(()=>{lock.style.display="none";lock.classList.remove("unlocking");resetIdle()},350);
 }
 
-/* APP MANAGEMENT */
-const appTitles={calc:"Kalkulačka",settings:"Nastavení",clock:"Hodiny",messages:"Zprávy",phone:"Telefon",notes:"Poznámky",files:"Soubory",translate:"Překladač"};
 function openApp(name){
  if(!appTitles[name])return;
- if(!apps.includes(name))apps.push(name);
- currentApp=name;
- $("shade").style.display="none";$("recents").style.display="none";
- $("chargingScreen").style.display="none";
- $("appScreen").style.display="flex";$("home").style.display="none";
- $("appTitle").textContent=appTitles[name];
+ if(!apps.includes(name))apps.push(name);currentApp=name;
+ $("shade").style.display="none";$("recents").style.display="none";$("chargingScreen").style.display="none";
+ $("appScreen").style.display="flex";$("home").style.display="none";$("appTitle").textContent=appTitles[name];
  const root=$("appContent");root.innerHTML="";
  if(name==="calc")renderCalculator(root);
  if(name==="settings")renderSettings(root);
@@ -589,14 +407,10 @@ function openApp(name){
  if(name==="messages")renderMessages(root);
  if(name==="phone")renderPhone(root);
  if(name==="notes")renderNotes(root);
- if(name==="files")renderFiles(root);
  if(name==="translate")renderTranslate(root);
  icons();resetIdle();
 }
-function closeApp(){
- $("appScreen").style.display="none";$("home").style.display="block";
- currentApp=null;resetIdle();
-}
+function closeApp(){$("appScreen").style.display="none";$("home").style.display="block";currentApp=null;resetIdle()}
 function goHome(){
  if($("shade").style.display==="block"){$("shade").style.display="none";return}
  if($("recents").style.display==="block"){$("recents").style.display="none";return}
@@ -615,236 +429,155 @@ function goBack(){
  if($("lockScreen").style.display!=="none")return;
  goHome();
 }
+
 function openRecents(){
- $("shade").style.display="none";$("chargingScreen").style.display="none";
- $("recents").style.display="block";renderRecents();resetIdle();
+ $("shade").style.display="none";$("chargingScreen").style.display="none";$("recents").style.display="block";renderRecents();resetIdle();
+}
+function recentPreview(name){
+ const p={calc:"<b>1 234</b><div>＋　−　×　÷</div><div>7　8　9　＝</div>",settings:"<b>Možnosti systému</b><div>Displej • Zvuk</div>",clock:"<b>12:45</b><small>Stopky　Budík</small>",messages:"<div>Ahoj!</div><div>Čau 👋</div>",phone:"<div>1　2　3<br>4　5　6<br>7　8　9</div>",notes:"<b>Moje poznámka</b><small>Uložený text…</small>",translate:"Čeština • English<br><b>Hello world</b>"};return p[name]||"Aplikace";
 }
 function renderRecents(){
  const root=$("recentList");
- if(!apps.length){root.innerHTML='<div class="panel">Žádné spuštěné aplikace.</div>';return}
- root.innerHTML=apps.map(name=>`<div class="recent-card"><strong>${appTitles[name]}</strong><div><button onclick="openApp('${name}')">Otevřít</button> <button onclick="closeRecent('${name}')">Zavřít</button></div></div>`).join("");
+ if(!apps.length){root.innerHTML='<div class="recent-empty"><i data-lucide="layers-2"></i><strong>Žádné otevřené aplikace</strong><span>Spuštěné aplikace se zobrazí tady.</span></div>';icons();return}
+ root.innerHTML=apps.slice().reverse().map(name=>`<article class="recent-card" data-app="${name}" onpointerdown="recentTouchStart(event)" onpointerup="recentTouchEnd(event,'${name}')">
+ <div class="recent-preview recent-${name}" onclick="openApp('${name}')"><div class="preview-top"><span>${appTitles[name]}</span><i data-lucide="more-horizontal"></i></div><div class="preview-content">${recentPreview(name)}</div></div>
+ <div class="recent-meta"><div class="recent-app-icon"><i data-lucide="${appIcons[name]}"></i></div><strong>${appTitles[name]}</strong><button class="recent-close" onclick="event.stopPropagation();closeRecent('${name}')"><i data-lucide="x"></i></button></div></article>`).join("");
+ icons();
 }
-function closeRecent(name){
- apps=apps.filter(x=>x!==name);
- if(currentApp===name){$("appScreen").style.display="none";$("home").style.display="block";currentApp=null}
- renderRecents();
-}
-function closeAllApps(){apps=[];currentApp=null;$("appScreen").style.display="none";$("home").style.display="block";renderRecents()}
+let recentStartY=0;
+function recentTouchStart(e){recentStartY=e.clientY}
+function recentTouchEnd(e,name){if(recentStartY-e.clientY>55)closeRecent(name);recentStartY=0}
+function closeRecent(name){apps=apps.filter(x=>x!==name);if(currentApp===name){$("appScreen").style.display="none";$("home").style.display="block";currentApp=null}renderRecents()}
+function closeAllApps(){apps=[];currentApp=null;$("appScreen").style.display="none";$("home").style.display="block";renderRecents();toast("Všechny aplikace zavřeny")}
 
-/* CALCULATOR */
 function renderCalculator(root){
- root.innerHTML=`
- <input id="calcDisplay" value="0" readonly>
- <div class="calc-grid">
- <button onclick="calcClear()">AC</button><button onclick="calcAdd('(')">(</button><button onclick="calcAdd(')')">)</button><button class="op" onclick="calcAdd('/')">÷</button>
- <button onclick="calcAdd('7')">7</button><button onclick="calcAdd('8')">8</button><button onclick="calcAdd('9')">9</button><button class="op" onclick="calcAdd('*')">×</button>
- <button onclick="calcAdd('4')">4</button><button onclick="calcAdd('5')">5</button><button onclick="calcAdd('6')">6</button><button class="op" onclick="calcAdd('-')">−</button>
- <button onclick="calcAdd('1')">1</button><button onclick="calcAdd('2')">2</button><button onclick="calcAdd('3')">3</button><button class="op" onclick="calcAdd('+')">+</button>
- <button onclick="calcAdd('0')">0</button><button onclick="calcAdd('.')">.</button><button onclick="calcClear()">C</button><button class="equal" onclick="calcResult()">=</button>
- </div>`;
+ root.innerHTML=`<input id="calcDisplay" value="0" readonly><div class="calc-grid">
+ <button onclick="calcClear()">AC</button><button onclick="calcDelete()">⌫</button><button onclick="calcInput('%')">%</button><button class="op" onclick="calcInput('/')">÷</button>
+ <button onclick="calcInput('7')">7</button><button onclick="calcInput('8')">8</button><button onclick="calcInput('9')">9</button><button class="op" onclick="calcInput('*')">×</button>
+ <button onclick="calcInput('4')">4</button><button onclick="calcInput('5')">5</button><button onclick="calcInput('6')">6</button><button class="op" onclick="calcInput('-')">−</button>
+ <button onclick="calcInput('1')">1</button><button onclick="calcInput('2')">2</button><button onclick="calcInput('3')">3</button><button class="op" onclick="calcInput('+')">+</button>
+ <button onclick="calcInput('0')">0</button><button onclick="calcInput('.')">.</button><button class="equal" style="grid-column:span 2" onclick="calcResult()">=</button></div>`;
 }
-function calcAdd(v){const d=$("calcDisplay");if(d.value==="0"||d.value==="Chyba")d.value="";d.value+=v}
+function calcInput(v){const d=$("calcDisplay");if(d.value==="0"&&/[0-9.]/.test(v))d.value=v;else d.value+=v}
 function calcClear(){$("calcDisplay").value="0"}
-function calcResult(){
- const d=$("calcDisplay"),exp=d.value;
- if(!/^[0-9+\-*/(). ]+$/.test(exp)){d.value="Chyba";playSound("error");return}
- try{const result=Function('"use strict";return ('+exp+')')();d.value=Number.isFinite(result)?String(Number(result.toFixed(8))):"Chyba"}catch(e){d.value="Chyba";playSound("error")}
-}
+function calcDelete(){$("calcDisplay").value=$("calcDisplay").value.slice(0,-1)||"0"}
+function calcResult(){const d=$("calcDisplay");try{if(!/^[0-9+\-*/%.() ]+$/.test(d.value))throw 0;const r=Function('"use strict";return ('+d.value+')')();if(!Number.isFinite(r))throw 0;d.value=String(Math.round(r*1e10)/1e10)}catch(e){d.value="Chyba"}}
 
-/* SETTINGS */
 function renderSettings(root){
- root.innerHTML=`
- <div class="panel"><h3>Jazyk systému</h3>
- <select class="field" id="languageSelect" onchange="changeLanguage(this.value)">
- <option value="cs">Čeština</option><option value="en">English</option><option value="sk">Slovenčina</option><option value="de">Deutsch</option>
- </select></div>
- <div class="panel"><h3>Zvuk</h3>
- <div class="setting-row"><div><strong>Systémové zvuky</strong><small>Zapnout zvuky systému</small></div><button class="switch ${settings.sound?"on":""}" onclick="toggleSetting('sound',this)"></button></div>
- <div class="setting-row"><div><strong>Zvuky dotyku</strong><small>Zvuk při stisknutí tlačítek</small></div><button class="switch ${settings.touch?"on":""}" onclick="toggleSetting('touch',this)"></button></div>
- <div class="setting-row"><div><strong>Zvuky oznámení</strong><small>Upozornění a nabíjení</small></div><button class="switch ${settings.notifications?"on":""}" onclick="toggleSetting('notifications',this)"></button></div>
- <label class="muted">Hlasitost systému</label><input type="range" min="0" max="100" value="${settings.volume}" oninput="settings.volume=+this.value;volume=+this.value;saveSettings()">
- <select class="field" onchange="settings.theme=this.value;saveSettings()">
- <option value="oneui" ${settings.theme==="oneui"?"selected":""}>One UI</option><option value="classic" ${settings.theme==="classic"?"selected":""}>Classic</option><option value="minimal" ${settings.theme==="minimal"?"selected":""}>Minimal</option>
- </select>
- <button class="action secondary" onclick="playSound('notification')">Vyzkoušet zvuk</button>
- </div>
- <div class="panel"><h3>Displej</h3>
- <label class="muted">Jas displeje</label><input type="range" min="25" max="100" value="${brightness}" oninput="setBrightness(this.value)">
- <div style="margin-top:15px"><button class="action" onclick="wallpaper(0)">Modrá tapeta</button><button class="action" onclick="wallpaper(1)">Fialová</button><button class="action" onclick="wallpaper(2)">Zelená</button><button class="action" onclick="wallpaper(3)">Červená</button></div>
- </div>
- <div class="panel"><h3>Baterie a napájení</h3><p class="muted" id="settingsBattery"></p><button class="action secondary" onclick="showChargingScreen()">Zobrazit obrazovku baterie</button></div>
- <div class="panel"><h3>O zařízení</h3><p class="muted">SirTrosOS<br>Verze 2.0<br>Webový operační systém<br>Vytvořil SirTros</p></div>
- <div class="panel"><button class="action" onclick="showRestart()">Restartovat zařízení</button></div>`;
- $("languageSelect").value=language;
- $("settingsBattery").textContent=batteryLevel===null?"Stav baterie není dostupný":batteryLevel+" % • "+(isCharging?"Nabíjí se":"Nenabíjí se");
+ root.innerHTML=`<div class="panel"><h3>Displej</h3><div class="setting-row"><div><strong>Jas displeje</strong><small>Uprav jas systému</small></div><b id="brightnessSetting">${brightness}%</b></div><input type="range" min="25" max="100" value="${brightness}" oninput="setBrightness(this.value);$('brightnessSetting').textContent=brightness+'%'"></div>
+ <div class="panel"><h3>Zvuk</h3>${settingToggle("Zvuky systému","sound")}${settingToggle("Zvuky dotyku","touch")}</div>
+ <div class="panel"><h3>Jazyk</h3><select class="field" id="languageSelect" onchange="changeLanguage(this.value)"><option value="cs">Čeština</option><option value="en">English</option></select></div>
+ <div class="panel"><h3>Baterie</h3><p class="muted" id="batterySettingText">Načítám stav baterie…</p><button class="action" onclick="showChargingScreen()">Zobrazit obrazovku nabíjení</button></div>
+ <div class="panel"><h3>O zařízení</h3><p class="muted">SirTrosOS<br>Verze 1.0<br>Mobilní webový systém</p></div>`;
+ $("languageSelect").value="cs";
 }
-function toggleSetting(key,button){settings[key]=!settings[key];button.classList.toggle("on",settings[key]);saveSettings()}
-function saveSettings(){localStorage.setItem("sirtros_sound",JSON.stringify(settings))}
-try{const saved=JSON.parse(localStorage.getItem("sirtros_sound"));if(saved)settings={...settings,...saved};volume=settings.volume}catch(e){}
-function changeLanguage(value){
- language=value;localStorage.setItem("sirtros_language",value);
- document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.dataset.i18n;if(translations[value][k])el.textContent=translations[value][k]});
- updateTime();toast("Jazyk změněn");
+function settingToggle(label,key){return `<div class="setting-row"><div><strong>${label}</strong></div><button class="switch ${settings[key]?"on":""}" onclick="toggleSetting('${key}',this)" aria-label="${label}"></button></div>`}
+function toggleSetting(key,el){settings[key]=!settings[key];el.classList.toggle("on",settings[key])}
+function setBrightness(v){
+ brightness=Math.max(25,Math.min(100,Number(v)||100));
+ document.documentElement.style.setProperty("--brightness",brightness/100);
+ if($("brightnessValue"))$("brightnessValue").textContent=brightness+" %";
+ if($("brightnessSlider"))$("brightnessSlider").value=brightness;
+ try{localStorage.setItem("sirtros_brightness",brightness)}catch(e){}
 }
-function wallpaper(n){
- const w=[
- 'radial-gradient(circle at 20% 20%,#174b83 0%,transparent 42%),radial-gradient(circle at 80% 75%,#49246f 0%,transparent 45%),linear-gradient(145deg,#07101e,#101a31 60%,#090d18)',
- 'radial-gradient(circle at 20% 20%,#773bb3,transparent 45%),radial-gradient(circle at 80% 80%,#1d397e,transparent 50%),linear-gradient(145deg,#100c25,#261747)',
- 'radial-gradient(circle at 20% 20%,#187a62,transparent 45%),radial-gradient(circle at 80% 80%,#184b83,transparent 50%),linear-gradient(145deg,#071c1a,#102c31)',
- 'radial-gradient(circle at 20% 20%,#a13b4b,transparent 45%),radial-gradient(circle at 80% 80%,#59317c,transparent 50%),linear-gradient(145deg,#210c18,#32162a)'
- ];
- document.documentElement.style.setProperty("--wallpaper",w[n]);$("home").style.background=w[n];$("os").style.background=w[n];toast("Tapeta změněna");
-}
+function changeLanguage(v){if(v!=="cs"&&v!=="en")return;toast(v==="cs"?"Jazyk změněn na češtinu":"Language changed to English")}
 
-/* CLOCK */
 function renderClock(root){
- root.innerHTML=`
- <div class="panel"><h3>Aktuální čas</h3><div class="clock-big" id="clockAppTime">12:00</div><p class="muted" style="text-align:center">Systémové hodiny</p></div>
- <div class="panel"><h3>Stopky</h3><div class="clock-big" id="stopwatch">00:00.0</div>
- <div class="clock-buttons"><button class="action" onclick="startStopwatch()">Start</button><button class="action secondary" onclick="pauseStopwatch()">Pauza</button><button class="action secondary" onclick="resetStopwatch()">Reset</button></div></div>`;
- drawStopwatch();
+ root.innerHTML=`<div class="panel"><div class="clock-big" id="clockBig">12:00</div><p class="muted" style="text-align:center">Aktuální čas</p></div><div class="panel"><h3>Stopky</h3><div class="clock-big" id="stopwatch">00:00.0</div><div class="clock-buttons"><button class="action" onclick="startStopwatch()">Start</button><button class="action secondary" onclick="stopStopwatch()">Stop</button><button class="action secondary" onclick="resetStopwatch()">Reset</button></div></div>`;
+ updateClockApp();
 }
-function updateClockApp(){const el=$("clockAppTime");if(el)el.textContent=new Date().toLocaleTimeString("cs-CZ")}
-setInterval(updateClockApp,500);
-function drawStopwatch(){
- const el=$("stopwatch");if(!el)return;
- const ms=stopwatchElapsed+(stopwatchStart?Date.now()-stopwatchStart:0),t=Math.floor(ms/100);
- el.textContent=String(Math.floor(t/600)).padStart(2,"0")+":"+String(Math.floor(t/10)%60).padStart(2,"0")+"."+(t%10);
-}
-function startStopwatch(){if(stopwatchStart)return;stopwatchStart=Date.now();stopwatchInterval=setInterval(drawStopwatch,100)}
-function pauseStopwatch(){if(!stopwatchStart)return;stopwatchElapsed+=Date.now()-stopwatchStart;stopwatchStart=null;clearInterval(stopwatchInterval);drawStopwatch()}
-function resetStopwatch(){pauseStopwatch();stopwatchElapsed=0;drawStopwatch()}
+function updateClockApp(){if($("clockBig"))$("clockBig").textContent=new Date().toLocaleTimeString("cs-CZ",{hour:"2-digit",minute:"2-digit"})}
+setInterval(updateClockApp,1000);
+function startStopwatch(){if(stopwatchInterval)return;stopwatchStart=Date.now()-stopwatchElapsed;stopwatchInterval=setInterval(()=>{stopwatchElapsed=Date.now()-stopwatchStart;const s=stopwatchElapsed/1000;$("stopwatch").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(Math.floor(s%60)).padStart(2,"0")+"."+Math.floor(s%1*10)},100)}
+function stopStopwatch(){clearInterval(stopwatchInterval);stopwatchInterval=null}
+function resetStopwatch(){stopStopwatch();stopwatchElapsed=0;if($("stopwatch"))$("stopwatch").textContent="00:00.0"}
 
-/* MESSAGES */
 function renderMessages(root){
- root.innerHTML=`<div id="messageList"><div class="message"><small>SirTrosOS</small>Ahoj! Vítej ve zprávách.</div><div class="message"><small>Systém</small>Toto je místní ukázková aplikace zpráv.</div></div>
- <div class="panel"><input class="field" id="messageInput" placeholder="Napiš zprávu..."><button class="action" onclick="sendMessage()">Odeslat</button></div>`;
+ root.innerHTML=`<div class="panel"><h3>Zprávy</h3><p class="muted">Ukázková konverzace</p><div class="message"><small>SirTrosOS</small>Ahoj! Vítej v systému.</div><div class="message mine"><small>Já</small>Ahoj 👋</div><div id="messageList"></div><input class="field" id="messageInput" placeholder="Napiš zprávu…" maxlength="500"><button class="action" onclick="sendMessage()">Odeslat</button></div>`;
 }
-function sendMessage(){
- const input=$("messageInput");if(!input||!input.value.trim())return;
- const div=document.createElement("div");div.className="message mine";div.textContent=input.value;
- $("messageList").appendChild(div);input.value="";
-}
+function sendMessage(){const i=$("messageInput"),v=i.value.trim();if(!v)return;const d=document.createElement("div");d.className="message mine";d.textContent=v;$("messageList").append(d);i.value=""}
 
-/* PHONE */
 function renderPhone(root){
- root.innerHTML=`<div class="panel"><div class="dial-display" id="dialDisplay"></div><div class="dial-grid">
- ${["1","2","3","4","5","6","7","8","9","*","0","#"].map(x=>`<button onclick="dialAdd('${x}')">${x}</button>`).join("")}
- </div><div style="display:flex;justify-content:center;gap:10px"><button class="action" onclick="toast('Volání není v tomto webovém systému dostupné.')"><i data-lucide="phone" style="width:16px;vertical-align:middle"></i> Volat</button><button class="action secondary" onclick="dialClear()">Smazat</button></div></div>`;
+ root.innerHTML=`<div class="panel"><h3>Telefon</h3><div class="dial-display" id="dialDisplay"></div><div class="dial-grid">${["1","2","3","4","5","6","7","8","9","*","0","#"].map(x=>`<button onclick="dialInput('${x}')">${x}</button>`).join("")}</div><button class="action" onclick="toast('Volání není v tomto webovém systému dostupné')">Volat</button><button class="action secondary" onclick="dialNumber='';updateDial()">Smazat</button></div>`;
 }
-function dialAdd(v){dialNumber+=v;$("dialDisplay").textContent=dialNumber}
-function dialClear(){dialNumber="";$("dialDisplay").textContent=""}
+function dialInput(v){dialNumber+=v;updateDial()}
+function updateDial(){if($("dialDisplay"))$("dialDisplay").textContent=dialNumber}
 
-/* NOTES */
 function renderNotes(root){
- root.innerHTML=`<div class="panel"><h3>Nová poznámka</h3><input class="field" id="noteTitle" placeholder="Název poznámky"><textarea class="field" id="noteText" rows="4" placeholder="Napiš poznámku..."></textarea><button class="action" onclick="saveNote()">Uložit poznámku</button></div><div id="notesList"></div>`;
+ root.innerHTML=`<div class="panel"><h3>Nová poznámka</h3><input class="field" id="noteTitle" placeholder="Název poznámky"><textarea class="field" id="noteText" rows="4" placeholder="Text poznámky…" style="resize:vertical;user-select:text"></textarea><button class="action" onclick="saveNote()">Uložit poznámku</button></div><div id="notesList"></div>`;
  drawNotes();
 }
 function saveNote(){
  const title=$("noteTitle").value.trim(),body=$("noteText").value.trim();
  if(!title&&!body){toast("Napiš nejprve poznámku");return}
  notes.unshift({id:Date.now(),title:title||"Poznámka",body});
- localStorage.setItem("sirtros_notes",JSON.stringify(notes));
+ try{localStorage.setItem("sirtros_notes",JSON.stringify(notes))}catch(e){toast("Poznámka zůstane jen do zavření stránky")}
  $("noteTitle").value="";$("noteText").value="";drawNotes();toast("Poznámka uložena");
 }
 function drawNotes(){
  const el=$("notesList");if(!el)return;
  el.innerHTML=notes.length?notes.map(n=>`<div class="note-item"><strong>${escapeHTML(n.title)}</strong><p class="muted">${escapeHTML(n.body)}</p><button class="action secondary" onclick="deleteNote(${n.id})">Smazat</button></div>`).join(""):'<div class="panel muted">Zatím tu nejsou žádné poznámky.</div>';
 }
-function deleteNote(id){notes=notes.filter(n=>n.id!==id);localStorage.setItem("sirtros_notes",JSON.stringify(notes));drawNotes()}
+function deleteNote(id){notes=notes.filter(n=>n.id!==id);try{localStorage.setItem("sirtros_notes",JSON.stringify(notes))}catch(e){}drawNotes()}
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
 
-/* FILES */
-function renderFiles(root){
- root.innerHTML=`<div class="panel"><h3><i data-lucide="folder" style="vertical-align:middle"></i> Moje soubory</h3><p class="muted">Jednoduchý správce lokálních souborů pro tento webový systém.</p><input type="file" id="filePicker" class="field" multiple onchange="showPickedFiles(this.files)"><div id="fileList" class="muted">Vyber soubory ze zařízení.</div></div>`;
-}
-function showPickedFiles(files){
- const list=$("fileList");if(!list)return;
- list.innerHTML="";
- [...files].forEach(f=>{const row=document.createElement("div");row.className="note-item";row.textContent=f.name+" • "+Math.round(f.size/1024)+" KB";list.appendChild(row)});
-}
-
-/* TRANSLATOR */
+let translateDirection="cs-en";
 function renderTranslate(root){
- root.innerHTML=`<div class="panel"><h3>Překladač</h3><select id="translateLang" class="field"><option value="en">Angličtina</option><option value="cs">Čeština</option><option value="sk">Slovenština</option><option value="de">Němčina</option><option value="fr">Francouzština</option></select><textarea id="translateInput" class="field" rows="4" placeholder="Text k překladu..."></textarea><button class="action" onclick="translateText()">Přeložit</button><div id="translateOutput" class="panel" style="margin-top:12px">Výsledek překladu se zobrazí zde.</div></div>`;
+ root.innerHTML=`<div class="panel"><h3>Chytrý překladač</h3><p class="muted">Čeština a angličtina</p><div class="language-bar" style="display:flex;align-items:center;gap:8px;margin:15px 0"><span id="sourceLanguage">Čeština</span><button class="action" onclick="swapTranslateDirection()">⇄</button><span id="targetLanguage">English</span></div><textarea id="translateInput" class="field" rows="5" maxlength="5000" placeholder="Napiš text k překladu…" style="resize:vertical;user-select:text"></textarea><button class="action" onclick="translateText()" id="translateButton">Přeložit</button><div class="panel" style="margin-top:15px"><h3>Výsledek</h3><div id="translateOutput" style="overflow-wrap:anywhere">Překlad se zobrazí tady.</div></div></div>`;
 }
+function updateTranslateLabels(){$("sourceLanguage").textContent=translateDirection==="cs-en"?"Čeština":"English";$("targetLanguage").textContent=translateDirection==="cs-en"?"English":"Čeština"}
+function swapTranslateDirection(){translateDirection=translateDirection==="cs-en"?"en-cs":"cs-en";updateTranslateLabels();$("translateOutput").textContent="Překlad se zobrazí tady."}
 async function translateText(){
- const input=$("translateInput").value.trim(),lang=$("translateLang").value,out=$("translateOutput");
- if(!input){toast("Zadej text");return}
- out.textContent="Překládám…";
- try{
-  const source=language==="cs"?"cs":language;
-  const url="https://api.mymemory.translated.net/get?q="+encodeURIComponent(input)+"&langpair="+source+"|"+lang;
-  const response=await fetch(url),data=await response.json();
-  out.textContent=data.responseData?.translatedText||"Překlad se nepodařilo získat.";
- }catch(e){out.textContent="Překladač potřebuje připojení k internetu."}
+ const v=$("translateInput").value.trim(),out=$("translateOutput"),btn=$("translateButton");
+ if(!v){toast("Nejdřív napiš text");return}
+ btn.disabled=true;btn.textContent="Překládám…";out.textContent="Překládám text…";
+ try{const pair=translateDirection==="cs-en"?"cs|en":"en|cs",r=await fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(v)+"&langpair="+pair);if(!r.ok)throw Error();const d=await r.json();if(!d.responseData?.translatedText)throw Error();out.textContent=d.responseData.translatedText}
+ catch(e){out.textContent="Překlad se nepodařilo načíst. Zkontroluj připojení k internetu."}
+ finally{btn.disabled=false;btn.textContent="Přeložit"}
 }
 
-/* QUICK PANEL */
-function toggleShade(){
- $("shade").style.display=$("shade").style.display==="block"?"none":"block";
- $("recents").style.display="none";icons();resetIdle();
-}
+function toggleShade(){$("shade").style.display=$("shade").style.display==="block"?"none":"block";$("recents").style.display="none";icons();resetIdle()}
 function toggleQuick(button){
- const key=button.dataset.feature;
- quickState[key]=!quickState[key];
- button.classList.toggle("active",quickState[key]);
- if(key==="wifi"||key==="bluetooth")toast(button.textContent.trim()+": "+(quickState[key]?"zapnuto":"vypnuto"));
+ const key=button.dataset.feature;quickState[key]=!quickState[key];button.classList.toggle("active",quickState[key]);
  if(key==="airplane"&&quickState.airplane){quickState.wifi=false;quickState.bluetooth=false;document.querySelector('[data-feature="wifi"]').classList.remove("active");document.querySelector('[data-feature="bluetooth"]').classList.remove("active")}
 }
-function setBrightness(v){brightness=Number(v);document.documentElement.style.setProperty("--brightness",brightness/100);$("brightnessValue").textContent=brightness+"%"}
-function setVolume(v){volume=Number(v);settings.volume=volume;$("volumeValue").textContent=volume+"%";saveSettings()}
+function setVolume(v){volume=Number(v);$("volumeValue").textContent=volume+"%"}
 function addNotification(title,message){
  const list=$("notificationList");if(!list)return;
- const div=document.createElement("div");div.className="notice";
- const strong=document.createElement("strong"),p=document.createElement("p");
- strong.textContent=title;p.textContent=message;div.append(strong,p);list.prepend(div);
- playSound("notification");
+ const d=document.createElement("div");d.className="panel";const s=document.createElement("strong"),p=document.createElement("p");s.textContent=title;p.textContent=message;p.className="muted";d.append(s,p);list.prepend(d);
 }
-function clearNotifications(){$("notificationList").innerHTML="";$("statusIcons").innerHTML="";toast("Oznámení vymazána")}
+function clearNotifications(){$("notificationList").innerHTML="";toast("Oznámení vymazána")}
 
-/* RESTART / SHUTDOWN */
-function showRestart(){
- $("shade").style.display="none";$("recents").style.display="none";
- $("dialogTitle").textContent="Restartovat zařízení?";
- $("dialogText").textContent="Opravdu chcete restartovat SirTrosOS?";
- $("dialog").style.display="flex";
-}
+function showPowerMenu(){$("shade").style.display="none";$("dialog").style.display="flex";icons()}
 function hideDialog(){$("dialog").style.display="none"}
+function lockDevice(){
+ hideDialog();$("appScreen").style.display="none";$("shade").style.display="none";$("recents").style.display="none";$("home").style.display="block";currentApp=null;
+ $("lockScreen").style.display="flex";$("lockScreen").classList.remove("unlocking");resetIdle();
+}
 function confirmRestart(){
- $("dialog").style.display="none";playSound("shutdown");
- $("os").style.display="none";$("blackScreen").style.display="block";
- $("bootScreen").style.display="none";$("bootScreen").style.opacity="0";
- $("loadingBar").style.width="0%";$("appScreen").style.display="none";
- $("home").style.display="block";$("lockScreen").style.display="flex";
- $("shade").style.display="none";$("recents").style.display="none";
- $("chargingScreen").style.display="none";currentApp=null;apps=[];
- stage=1;completed=true;holding=false;
- setTimeout(()=>{if(stage===1)beginBoot()},1800);
+ hideDialog();clearTimeout(idleTimer);clearTimeout(dimTimer);
+ $("os").style.display="none";$("blackScreen").style.display="block";$("bootScreen").style.display="none";$("bootScreen").style.opacity="0";$("loadingBar").style.width="0%";
+ $("appScreen").style.display="none";$("home").style.display="block";$("lockScreen").style.display="flex";$("shade").style.display="none";$("recents").style.display="none";$("chargingScreen").style.display="none";
+ currentApp=null;apps=[];stage=1;completed=true;holding=false;sleeping=false;$("sleepOverlay").style.display="none";
+ setTimeout(()=>{if(stage===1)beginBoot()},1000);
+}
+function shutdownDevice(){
+ hideDialog();clearTimeout(idleTimer);clearTimeout(dimTimer);stage=0;currentApp=null;apps=[];sleeping=false;
+ $("os").style.display="none";$("bootScreen").style.display="none";$("blackScreen").style.display="none";$("startScreen").style.display="flex";
 }
 
-/* TOAST */
-function toast(message){
- const el=$("toast");el.textContent=message;el.classList.add("show");
- clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2200);
-}
+function toast(message){const el=$("toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2200)}
 
-/* IDLE / SCREEN DIM */
 function resetIdle(){
- if(stage<2)return;
- clearTimeout(idleTimer);clearTimeout(dimTimer);
- if(sleeping){sleeping=false;$("sleepOverlay").style.display="none";$("lockScreen").style.display="flex";$("lockScreen").classList.remove("unlocking")}
+ if(stage<2)return;clearTimeout(idleTimer);clearTimeout(dimTimer);
+ if(sleeping){sleeping=false;$("sleepOverlay").classList.remove("sleep-on");$("sleepOverlay").style.display="none"}
  document.documentElement.style.setProperty("--brightness",brightness/100);
- dimTimer=setTimeout(()=>{if(!sleeping)document.documentElement.style.setProperty("--brightness",brightness/100*.3)},10000);
- idleTimer=setTimeout(()=>{
-  sleeping=true;$("sleepOverlay").style.display="block";
-  document.documentElement.style.setProperty("--brightness",1);
- },15000);
+ dimTimer=setTimeout(()=>{if(!sleeping)document.documentElement.style.setProperty("--brightness",Math.max(.08,brightness/100*.3))},25000);
+ idleTimer=setTimeout(()=>{sleeping=true;$("sleepOverlay").style.display="block";requestAnimationFrame(()=>$("sleepOverlay").classList.add("sleep-on"))},30000);
 }
 function wakeFromSleep(){
- if(!sleeping)return;
- sleeping=false;$("sleepOverlay").style.display="none";
- $("lockScreen").style.display="flex";$("lockScreen").classList.remove("unlocking");resetIdle();
+ if(!sleeping)return;sleeping=false;$("sleepOverlay").classList.remove("sleep-on");
+ setTimeout(()=>{$("sleepOverlay").style.display="none";$("lockScreen").style.display="flex";$("lockScreen").classList.remove("unlocking");document.documentElement.style.setProperty("--brightness",brightness/100);resetIdle()},250);
 }
 document.addEventListener("pointerdown",e=>{
  if(stage<2)return;
@@ -853,20 +586,17 @@ document.addEventListener("pointerdown",e=>{
  resetIdle();
 },{passive:true});
 
-/* SWIPES */
-let touchStartY=null;
-document.addEventListener("touchstart",e=>{
- if(stage<2||e.touches.length!==1)return;
- touchStartY=e.touches[0].clientY;
-},{passive:true});
-document.addEventListener("touchend",e=>{
- if(stage<2||touchStartY===null)return;
- const end=e.changedTouches[0].clientY;
- if(touchStartY<35&&end-touchStartY>65&&$("lockScreen").style.display==="none"&&$("appScreen").style.display!=="flex")toggleShade();
- if($("shade").style.display==="block"&&touchStartY-end>65)$("shade").style.display="none";
- if($("recents").style.display==="block"&&touchStartY-end>65)$("recents").style.display="none";
- touchStartY=null;
-},{passive:true});
+/* GESTA PRO RYCHLÝ PANEL */
+let swipeY=null;
+document.addEventListener("pointerdown",e=>{if(stage>=2)swipeY=e.clientY},{passive:true});
+document.addEventListener("pointerup",e=>{
+ if(stage<2||swipeY===null)return;
+ const delta=e.clientY-swipeY;
+ if(swipeY<35&&delta>65&&$("lockScreen").style.display==="none"&&$("appScreen").style.display!=="flex")toggleShade();
+ if($("shade").style.display==="block"&&delta < -65)$("shade").style.display="none";
+ if($("recents").style.display==="block"&&delta < -65)$("recents").style.display="none";
+ swipeY=null;
+});
 
 window.addEventListener("orientationchange",()=>{});
 </script>
